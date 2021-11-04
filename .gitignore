@@ -307,3 +307,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/rails,macos,node,linux,windows
+config/database. yml

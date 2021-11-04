@@ -1,5 +1,12 @@
 <h1>Facility Details</h1>
-
+<%# place holder links %>
+<div>
+    <%= link_to 'All Facilities', facilities_index_path %> |
+    <%= link_to 'Add Facility', new_facility_path %> |
+    <%= link_to 'Edit', edit_facility_path%> |
+    <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"} %>
+</div>
+<hr>
 <div class="">
     <p><%= @facility.full_address %>
     <p>Facility Features: <%= @facility.features %></p>
