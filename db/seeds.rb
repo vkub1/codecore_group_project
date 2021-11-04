@@ -85,7 +85,7 @@ courses = Course.all
         category: "Location"
     )
     f = Facility.create(
-        location: Faker::Address.full_address,
+        full_address: Faker::Address.full_address,
         features: Faker::Lorem.words(number: 150)
     )
     if f.valid?
