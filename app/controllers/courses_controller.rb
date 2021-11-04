@@ -5,6 +5,7 @@ class CoursesController < ApplicationController
         @courses=Course.all
     end
     def show
+        @user = User.find 1
     end
     def new
         @course=Course.new
