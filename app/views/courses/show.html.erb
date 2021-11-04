@@ -9,10 +9,11 @@
 </h5>
 
 
-<% if  @enrollement.present? %>
-<%= link_to "Cancel Enrollement", method: :delete %>
+
+<% if  @enrollment.present? %>
+<%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
 <% else %>
-<%= link_to("Enroll Now", "/users/#{@user.id}/enrollments?course_id=#{@course.id}", method: :post)%>
+<%= link_to("Enroll Now", "/users/current_user/enrollments?course_id=#{@course.id}", method: :post)%>
 <% end %>
 
 

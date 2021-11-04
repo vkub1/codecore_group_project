@@ -20,13 +20,13 @@ class EnrollmentsController < ApplicationController
     end
   end
 
-  def update
-  
-  end
+
 
   def destroy
-    @enrollment = Enrollment.find.params[:id]
-
+    @enrollment = Enrollment.find params[:id]
+    @enrollment.destroy
+    flash[:alert] = @enrollment.errors.full_messages
+    redirect_to courses_path, alert: "Your course is cancelled"
   end
 
 
