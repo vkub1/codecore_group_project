@@ -11,6 +11,7 @@ class FacilitiesController < ApplicationController
     @facility = Facility.new
   end
 
+  # action is not complete but for now it's MVP
   def create
     @facility = Facility.new(params.require(:facility).permit(:full_address, :features))
     if @facility.save
