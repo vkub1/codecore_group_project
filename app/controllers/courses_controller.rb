@@ -7,11 +7,11 @@ class CoursesController < ApplicationController
         @courses=Course.all
     end
     def show
-<<<<<<< HEAD
+
         @user = User.find 1
-=======
+
         @enrollement = @course.enrollments.find_by(user: current_user)
->>>>>>> b473c63772f0f69bc7672a0a9ecb03d9f4c22cf0
+
     end
     def new
         @course=Course.new

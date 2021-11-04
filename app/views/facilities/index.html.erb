@@ -2,7 +2,9 @@
 
 <%# the following links work but are temporary placeholders for now %>
 <div>
-    <%= link_to 'Add Facility', new_facility_path %> |
+    <% if current_user&.is_admin? %>
+        <%= link_to 'Add Facility', new_facility_path %> |
+    <% end %>
     <%= link_to 'Book'%>
 </div>
 <hr>
