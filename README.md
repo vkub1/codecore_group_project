@@ -2,7 +2,7 @@
 
 # Members
 
-Vladimir Kubliy
+Vladimir Kubliy, ROLES: Tags + Database + Project Manager + Git Master  
 
 
 
