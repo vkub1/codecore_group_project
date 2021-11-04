@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   resources :facilities
   
   resource :session, only: [:new, :create, :destroy]
-  get('/admin', {to: "user#admin", as 'admin'})
+  get('/admin', {to: "users#admin", as 'admin'})
 
 end
