@@ -101,3 +101,9 @@ courses = Course.all
         )
     end
 end
+
+facilities = Facility.all
+
+puts "generated #{facilities.count} facilities"
+puts "generated #{users.count} users"
+puts "generated #{courses.count} courses"
