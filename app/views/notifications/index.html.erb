@@ -1,0 +1,11 @@
+<% @notifications.each do |n| %>
+  <div>
+    <h3><%= n.message %></h3>
+    <small>Sent by <%= n.sender.first_name %></small>
+    <small>Received by <%= n.receiver.first_name %></small>
+    <% if (n.is_request && n.request_type == 'enrollment') %>
+      <%= link_to "Approve", user_enrollment_path(n.sender_id), method: "PATCH" %>
+      <%= link_to "Approve", user_enrollment_path(n.sender_id), method: "DELETE" %>
+    <% end %>
+  </div>
+<% end %>

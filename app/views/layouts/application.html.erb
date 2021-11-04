@@ -8,9 +8,32 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+
+  <style>
+    body {
+      padding: 50px;
+    }
+    .swiper {
+        height: 600px;
+      }
+    .swiper-slide {
+        /* background: #ccc; */
+        background-image: url('office.jpg');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+      }
+      .swiper-slide>a {
+        text-decoration: none;
+        }
+  </style>
   </head>
 
   <body>
+
 
   <% if user_signed_in? %>
           Hello <%= current_user.full_name %>
@@ -26,6 +49,9 @@
             <%=  link_to  'Sign Up', new_user_path  %>
             <% end %>
           
+
+    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
     <%= yield %>
   </body>
 </html>

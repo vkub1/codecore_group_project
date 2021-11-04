@@ -86,7 +86,7 @@ courses = Course.all
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 150)
+        features: Faker::Lorem.words(number: 15)
     )
     if f.valid?
         Tagging.create(
