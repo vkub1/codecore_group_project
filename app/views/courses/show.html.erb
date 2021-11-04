@@ -8,10 +8,13 @@
     Created by:
 </h5>
 
-
-<%= link_to("Enroll Now", course_path(@course.id))  %>
+<% if  @enrollement.present? %>
+<%= link_to "Cancel Enrollement", method: :delete %>
+<% else %>
+<%= link_to "Enroll Now", user_enrollments_path, method: :post %>
+<% end %>
 
 
 |
 
- <%= link_to("Book", course_path(@course.id)) %>
+ <%= link_to("Book", course_bookings_path(@course.id)) %>
