@@ -1,0 +1,15 @@
+<h1>Facilities#show</h1>
+<p>Find me in app/views/facilities/show.html.erb</p>
+
+<p><%= @facility.full_address %>
+<p>Facility Features: <%= @facility.features %></p>
+
+<% unless @facility.tags.empty? %>
+    <p> Tags:
+        <% @facility.tags.each do |tag| %>
+        <%= link_to(
+            tag.name, facilities_path(tag: tag.name)
+        )%>
+        <% end %>
+    </p>
+<% end %>
