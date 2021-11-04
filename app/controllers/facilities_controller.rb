@@ -21,4 +21,17 @@ class FacilitiesController < ApplicationController
     end
   end
 
+  def edit
+    @facility = Facility.find params[:id]
+  end
+
+  def update
+    @facility = Facility.find params[:id]
+    if @facility.update(params.require(:facility).permit(:full_address, :features))
+      redirect_to facility_path(@facility.id)
+    else
+      render :edit
+    end
+  end
+
 end
