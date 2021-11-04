@@ -23,6 +23,14 @@ super_user = User.create(
     is_admin: true
 )
 
+hung = User.create(
+    first_name: "Hung",
+    last_name: "Nguyen",
+    email: "hung@123.com",
+    password: PASSWORD,
+    is_admin: false
+)
+
 20.times do 
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
