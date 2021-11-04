@@ -3,7 +3,8 @@
 <div>
     <%= link_to 'All Facilities', facilities_index_path %> |
     <%= link_to 'Add Facility', new_facility_path %> |
-    <%= link_to 'Edit', edit_facility_path%>
+    <%= link_to 'Edit', edit_facility_path%> |
+    <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"} %>
 </div>
 <hr>
 <div class="">

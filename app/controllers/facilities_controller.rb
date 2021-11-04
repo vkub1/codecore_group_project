@@ -34,4 +34,12 @@ class FacilitiesController < ApplicationController
     end
   end
 
+  def destroy
+    @facility = Facility.find params[:id]
+    if @facility.destroy
+      redirect_to facilities_path
+    else
+      redirect_to root_path, alert: 'Unable to delete'
+    end
+  end
 end
