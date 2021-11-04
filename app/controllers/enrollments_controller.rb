@@ -7,6 +7,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def create
+    @course = Course.find params[:course_id]
     @enrollment = Enrollment.new(user_id: params[:user_id], course_id: params[:course_id])
     @enrollment.course = @course
     @enrollment.user = current_user
@@ -14,6 +15,7 @@ class EnrollmentsController < ApplicationController
     if @enrollment.valid?
       @enrollment.save
       Notification.create
+      flash[:alert] = "enrollment request has been sent!"
       redirect_to course_path(@course)
     end
   end
