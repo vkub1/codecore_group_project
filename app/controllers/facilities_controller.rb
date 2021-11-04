@@ -21,4 +21,25 @@ class FacilitiesController < ApplicationController
     end
   end
 
+  def edit
+    @facility = Facility.find params[:id]
+  end
+
+  def update
+    @facility = Facility.find params[:id]
+    if @facility.update(params.require(:facility).permit(:full_address, :features))
+      redirect_to facility_path(@facility.id)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @facility = Facility.find params[:id]
+    if @facility.destroy
+      redirect_to facilities_path
+    else
+      redirect_to root_path, alert: 'Unable to delete'
+    end
+  end
 end

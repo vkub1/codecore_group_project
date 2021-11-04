@@ -10,11 +10,48 @@
     <%= javascript_pack_tag 'application' %>
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 
-
+  <style>
+    body {
+      padding: 50px;
+    }
+    .swiper {
+        height: 600px;
+      }
+    .swiper-slide {
+        /* background: #ccc; */
+        background-image: url('office.jpg');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+      }
+      .swiper-slide>a {
+        text-decoration: none;
+        }
+  </style>
   </head>
 
   <body>
+
+
+  <% if user_signed_in? %>
+          Hello <%= current_user.full_name %>
+          <%= link_to "Logout", session_path, method: :delete, data: {confirm: "Are you sure you want to logout?"} %>
+          |
+          <%if current_user.is_admin%>
+            <%= link_to 'admin', admin_path %>
+          <% end %>
+
+            <% else %>
+            <%=  link_to  'Log in', new_session_path  %>
+              |
+            <%=  link_to  'Sign Up', new_user_path  %>
+            <% end %>
+          
+
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
     <%= yield %>
   </body>
 </html>
