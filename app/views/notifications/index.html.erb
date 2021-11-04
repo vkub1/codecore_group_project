@@ -1,14 +1,19 @@
-<% @notifications.each do |n| %>
-  <div>
-    <h3><%= n.message %></h3>
-    <small>Sent by <%= n.sender.first_name %></small>
-    <small>Received by <%= n.receiver.first_name %></small>
-    <% if (n.is_request && n.request_type == 'enrollment') %>
-      <%= link_to "Approve", user_enrollment_path(n.sender_id, n.id), method: "PATCH" %>
-      <%= link_to "Deny", user_enrollment_path(n.sender_id, n.id), method: "DELETE" %>
-    <% elsif (n.is_request && n.request_type == 'booking') %>
-      <%= link_to "Approve", user_booking_path(n.sender_id, n.id), method: "PATCH" %>
-      <%= link_to "Deny", user_booking_path(n.sender_id, n.id), method: "DELETE" %>
+<div class="container-fluid">
+  <h1>Notifications</h1>
+  <% @notifications.each do |n| %>
+    <% if n.read == false %>
+      <div>
+        <h3><%= n.message %></h3>
+        <small>Sent by <%= n.sender.first_name %></small>
+        <small>Received by <%= n.receiver.first_name %></small>
+        <% if (n.is_request && n.request_type == 'enrollment') %>
+          <%= link_to "Approve", user_enrollment_path(n.sender_id, n.id), method: "PATCH" %>
+          <%= link_to "Deny", user_enrollment_path(n.sender_id, n.id), method: "DELETE" %>
+        <% elsif (n.is_request && n.request_type == 'booking') %>
+          <%= link_to "Approve", user_booking_path(n.sender_id, n.id), method: "PATCH" %>
+          <%= link_to "Deny", user_booking_path(n.sender_id, n.id), method: "DELETE" %>
+        <% end %>
+      </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>

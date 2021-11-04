@@ -16,12 +16,10 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
-    @enrollment
     Notification.create(message: "Your request to enroll in #{@enrollment.course_id.title} has been accepted", accepted: true, sender_id: @teacher.id, receiver_id: @enrollment.user.id, is_request: false)
   end
 
   def destroy
-    @enrollment
     Notification.create(message: "Your request to enroll in #{@enrollment.course_id.title} has been declined", accepted: true, sender_id: @teacher.id, receiver_id: @enrollment.user.id, is_request: false)
   end
 end
