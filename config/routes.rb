@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  get 'facilities/index'
+  get 'facilities/show'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
 
 
   get('/', {to: "welcome#index", as: 'root'})
@@ -15,5 +18,6 @@ Rails.application.routes.draw do
   resources :facilities
   
   resource :session, only: [:new, :create, :destroy]
-  get('/admin', {to: "user#admin", as 'admin'})
+#   get('/admin', {to: "user#admin", as 'admin'})
+
 end

@@ -1,0 +1,21 @@
+<h1>Facility Details</h1>
+
+<div class="">
+    <p><%= @facility.full_address %>
+    <p>Facility Features: <%= @facility.features %></p>
+
+    <% unless @facility.tags.empty? %>
+        <p> Tags:
+            <% @facility.tags.each do |tag| %>
+            <%= link_to(
+                tag.name, facilities_path(tag: tag.name)
+            )%>
+            <% end %>
+        </p>
+    <% end %>
+</div>
+
+<%# no routes yet for this link to work %>
+<div>
+    <%= link_to 'Book'%>
+</div>
