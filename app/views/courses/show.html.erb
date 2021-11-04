@@ -9,9 +9,13 @@
 </h5>
 
 
-<%= link_to "Enroll Now", "/users/#{@user.id}/enrollments?course_id=#{@course.id}", method: "POST" %>
+<% if  @enrollment.present? %>
+<%= link_to "Cancel Enrollement", method: :delete %>
+<% else %>
+<%= link_to("Enroll Now", "/users/#{@user.id}/enrollments?course_id=#{@course.id}", method: :post)%>
+<% end %>
 
 
 |
 
- <%= link_to("Book", course_path(@course.id)) %>
+ <%= link_to("Book", course_bookings_path(@course.id)) %>

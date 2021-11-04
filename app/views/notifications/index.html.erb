@@ -9,7 +9,7 @@
           <small>Sent by <%= n.sender.first_name %></small>
           <small>Received by <%= n.receiver.first_name %></small>
           <% if (n.is_request && n.request_type == 'enrollment') %>
-            <%= link_to "Approve", user_enrollment_path(n.sender_id, n.id), method: :patch %>
+            <%= link_to "Approve", user_enrollment_path(n.sender_id)"/users/#{n.sender_id}/enrollments?nid=#{n.id}", method: :patch %>
             <%= link_to "Deny", user_enrollment_path(n.sender_id, n.id), method: :delete %>
           <% elsif (n.is_request && n.request_type == 'booking') %>
             <%= link_to "Approve", user_booking_path(n.sender_id, n.id), method: :patch %>

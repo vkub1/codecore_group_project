@@ -1,0 +1,8 @@
+<h1>Enrolled Courses</h1>
+
+<% @enrollments.forEach do |enrollment|%>
+  <div>
+    <%= link_to(enrollment.course.title, course_path(enrollment.course)) %>
+    <%= enrollment.approved? <span class="approved">"approved" </span>: <span class="pending">"pending" </span>%>
+  </div>
+<% end %>
