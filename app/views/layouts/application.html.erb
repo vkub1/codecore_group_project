@@ -10,7 +10,26 @@
     <%= javascript_pack_tag 'application' %>
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
 
-
+  <style>
+    body {
+      padding: 50px;
+    }
+    .swiper {
+        height: 600px;
+      }
+    .swiper-slide {
+        /* background: #ccc; */
+        background-image: url('office.jpg');
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+      }
+      .swiper-slide>a {
+        text-decoration: none;
+        }
+  </style>
   </head>
 
   <body>
