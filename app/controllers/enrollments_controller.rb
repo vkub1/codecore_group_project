@@ -2,16 +2,12 @@ class EnrollmentsController < ApplicationController
 
   def index
     @enrollments = Enrollment.order(created_at: :desc)
-    @enrollments = Enrollment.find.params[:id]
-
-    if @enrollment.approved 
-
-    else
-    end
+    @enrollment = Enrollment.find.params[:id]
+    @enrollment.course = @course
   end
 
   def create
-    @enrollment = Enrollment.new(params.require(:enrollment).permit(:user_id, :course_id))
+    @enrollment = Enrollment.new(user_id: params[:user_id], course_id: params[:course_id])
     @enrollment.course = @course
     @enrollment.user = current_user
 
