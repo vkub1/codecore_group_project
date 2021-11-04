@@ -13,6 +13,7 @@
           <%= link_to "Approve", user_booking_path(n.sender_id, n.id), method: "PATCH" %>
           <%= link_to "Deny", user_booking_path(n.sender_id, n.id), method: "DELETE" %>
         <% end %>
+        <%= time_ago_in_words(n.created_at) %> ago
       </div>
     <% end %>
   <% end %>
