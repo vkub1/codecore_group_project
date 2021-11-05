@@ -9,12 +9,21 @@
             <h4><%= facility.full_address%> </h4>
             <br>
             <div class="card-body">
+           
                 <h5>bookings:</h5>
-                <ul>
+                 <% if facility.bookings.any?%>
+                   <ul>
                     <p><% facility.bookings.each do |booking| %></p>
                         <li> <%= "#{booking.course.title} booked_from #{booking.start_time} to #{booking.end_time}"%></li>
                     <% end %>
-                </ul>
+                    </ul>
+                <% else %>
+                    <ul>
+                        <p>This facility doesnot have any bookings.</p>
+                    </ul>
+                <% end %>
+               
+            
             </div>
         </div>
     <br>
