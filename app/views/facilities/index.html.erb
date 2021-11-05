@@ -1,12 +1,11 @@
-<h1>All Facilities</h1>
+<div class="container">
+    <h1>All Facilities</h1>
+</div>
 
-<%# the following links work but are temporary placeholders for now %>
-<div>
+<div class="container">
     <% if current_user&.is_admin? %>
-        <%= link_to 'Add Facility', new_facility_path %> |
+        <%= link_to 'Add Facility', new_facility_path %>
     <% end %>
-    
-    <%= link_to 'Book'%>
 </div>
 <hr>
 
