@@ -1,9 +1,12 @@
 class EnrollmentsController < ApplicationController
+  before_action :find_enrollment, only: [:update, :destroy]
+  before_action :authenticate_user!
+  before_action :authorize_user!, only: [:update, :destroy]
+
 
   def index
     @enrollments = Enrollment.order(created_at: :desc)
-    @enrollment = Enrollment.find.params[:id]
-    @enrollment.course = @course
+ 
   end
 
   def create
@@ -20,13 +23,30 @@ class EnrollmentsController < ApplicationController
     end
   end
 
+  def update
+    # @enrollment = Enrollment.find.params[:id]
+    @enrollment.update({approved: true})
+    redirect_to courses_path
+  end
+
 
 
   def destroy
-    @enrollment = Enrollment.find params[:id]
+    # @enrollment = Enrollment.find params[:id]
+    @enrollment.course = @course
     @enrollment.destroy
     flash[:alert] = @enrollment.errors.full_messages
     redirect_to courses_path, alert: "Your course is cancelled"
+  end
+
+
+  private
+  def find_enrollment
+    @enrollment = Enrollment.find params[:id]
+  end
+
+  def authorize_user!
+    redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @enrollment)
   end
 
 
