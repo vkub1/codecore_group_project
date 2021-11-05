@@ -1,7 +1,7 @@
 
-<h1 ><%= @course.title%> </h1>
+<h1 style="background-color:DodgerBlue;"><%= @course.title%> </h1>
 
-<p ><%= @course.description%></p>
+<p style="color: navy;text-indent: 30px;"><%= @course.description%></p>
 <p ><%= @course.max_students%></p>
 <br>
 
@@ -19,7 +19,7 @@
     <% end %>
     <h2 class="my-3">Teacher: <%= teacher[0].full_name%> </h2>
 <% else %>
-    <h2 class="my-3">You are teaching this course</h2>
+    <h5 class="my-3">You are teaching this course</h5>
     <% if @course.facilities_booked.length == 0%>
         You haven't booked a facility yet
         <%= link_to("Book Now", new_course_booking_path(@course.id)) %>
@@ -43,11 +43,11 @@
 <% end %>
 
 
-<h3>Students </h3>
+<h5>Students </h5>
 
 
 
 
-|
+
 
  

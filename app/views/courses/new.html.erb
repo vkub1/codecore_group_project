@@ -7,22 +7,31 @@
     <% end %>
   </ul>
 <% end %>
+<div class="container">
 
 <%= form_with model:@course do |form|%>
+ <div class="m-4">
 
     <%= form.label :title%>
-    <br>
-   
-    <%= form.text_field :title%>
     
-    <br>
+   
+    <%= form.text_field :title , :class=>'form-control' %>
+    </div>
+     <div class="m-4">
     <%= form.label :description%>
-    <br>
-    <%= form.text_area :description%>
-    <br>
+    
+    <%= form.text_area :description , :class=>'form-control' %>
+    </div>
+    
+    <div class="m-4">
     <%= form.label :max_students%>
-    <%= form.number_field :max_students, in: 1.0..30.0, step: 1 %>
-    <br>
+    <%= form.number_field :max_students, in: 1.0..30.0, step: 1, :class=>'form-control'  %>
+    </div>
+    
+    <div class="m-4">
     <%= form.submit nil, class:"btn btn-outline-primary" %>
+    </div>
 <% end %>
+</div>
+
 
