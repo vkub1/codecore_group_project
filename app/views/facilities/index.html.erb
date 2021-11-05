@@ -5,17 +5,23 @@
 <div class="container">
         <%= link_to 'Add Facility', new_facility_path, class: "btn btn-outline-info" %>
 </div>
+<br>
 
+<div class="container" style="justify-content: flex-start">
 <% if @tag.present? %>
-    <h2>Showing Facilities tagged by:
+<small>
+    Showing Facilities tagged by:
+</small>
         <span class="badge badge-pill badge-primary"><%= @tag.name %></span>
-    </h2>
-    <%= link_to "See all facilities", facilities_path %>
+    
+    <%= link_to "Clear Filters", facilities_path, class:"badge badge-pill badge-danger" %>
 <% end%>
-
+</div>
+<br>
+<div class="container" style="justify-content: flex-start">
 <% if @taggings.present? %>
-    <h2>Filter Facilities tagged by:
-    </h2>
+    <small>Select a tag to filter:
+    </small>
     <% @taggings.each do |tagging| %>
       <%= link_to(
         tagging.tag.name, facilities_path(tag: tagging.tag.name),
@@ -23,7 +29,7 @@
       )%>
     <% end %>
 <% end%>
-
+</div>
 <hr>
 
 <!-- Swiper -->
