@@ -21,4 +21,8 @@ class Course < ApplicationRecord
             Tag.find_or_initialize_by(name: tag_name)
         end
     end
+
+    def teacher
+        self.enrollments.find_by(is_teacher: true)
+    end
 end

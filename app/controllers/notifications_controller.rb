@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 
   def index
     @user = User.find params[:user_id]
-    @notifications = @user.received_notifications
+    @notifications = @user.received_notifications.order(created_at: :desc)
   end
 
   def update
@@ -11,4 +11,5 @@ class NotificationsController < ApplicationController
     @notification.update(read: true)
     redirect_to user_notifications_path(current_user)
   end
+  
 end
