@@ -1,40 +1,6 @@
 <div class="container">
     <h1>Edit Facility</h1>
 </div>
+<br>
 
-<% if @facility.errors.any? %>
-    <% @facility.errors.full_messages.each do |error| %>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Ooops! </strong><%= error %>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-    <% end %>
-<% end%>
-
-<div class="">
-    <%= form_with model: @facility do |form| %>
-        <div>
-            <%= form.label :full_address %>
-            <br>
-            <%= form.text_field :full_address, class:"form-control" %>
-        </div>
-        <div>
-            <%= form.label :features %>
-            <br>
-            <%= form.text_field :features, class:"form-control" %>
-        </div>
-        <br>
-        <div class="tag-wrapper">
-            <%= form.collection_check_boxes :tag_ids, Tag.order(name: :ASC), :id, :name do |t| %>
-            <%= t.check_box %>
-            <%= t.text %>
-            <% end %>
-        </div>
-        <br>
-        <br>
-        <%= form.submit class: "btn btn-outline-primary"%>
-    <% end %>
-    </div>
-</div>
+<%= render "form" %>
