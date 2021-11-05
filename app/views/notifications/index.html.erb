@@ -3,7 +3,13 @@
   <% if (@notifications) %>
     <% @notifications.each do |n| %>
       <% if n.read == false %>
-        <%= button_to "X", user_notification_path(n.receiver_id, n.id), method: :patch %>
+        <% if (n.is_request && n.request_type == 'enrollment') %>
+          <%= button_to "X", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}&notif=true", method: :delete %>
+        <% elsif (n.is_request && n.request_type == 'booking') %>
+          <%= button_to "X", "/users/#{n.sender_id}/bookings/#{n.booking_id}?nid=#{n.id}&notif=true", method: :delete %>
+        <% else %>
+          <%= button_to "X", user_notification_path(n.receiver_id, n.id), method: :patch %>
+        <% end %>
         <div>
           <h3><%= n.message %></h3>
           <% if (n.is_request && n.request_type == 'enrollment') %>
