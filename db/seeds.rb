@@ -94,8 +94,7 @@ courses = Course.all
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 150),
-        user: users.sample
+        features: Faker::Lorem.words(number: 150)
     )
     if f.valid? 
         user_sample = users.shuffle.slice(0, 10)
