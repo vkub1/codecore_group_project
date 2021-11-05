@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
  
   resources :users, only: [:new, :create] do
-    resources :notifications, only: [:index, :destroy]
+    resources :notifications, only: [:index, :update]
     resources :enrollments, only: [:index, :create, :update, :destroy]
     
   end

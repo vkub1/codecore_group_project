@@ -5,7 +5,6 @@ class User < ApplicationRecord
     has_many :received_notifications, class_name: "Notification", foreign_key: "receiver_id", dependent: :destroy
     has_many :enrollments, dependent: :destroy
     has_many :enrolled_courses, through: :enrollments, source: :course
-    has_many :facilities, dependent: :destroy
 
 
     validates :first_name, :last_name, presence:true
