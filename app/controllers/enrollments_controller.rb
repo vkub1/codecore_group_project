@@ -24,7 +24,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
-    @enrollment.update({approved: true})
+    @enrollment.update(approved: true)
     @course = Course.find @enrollment.course_id
     @teacher = Enrollment.where("is_teacher = ? AND course_id = ?", true, @course.id)[0]
     @notification = Notification.find params[:nid]
