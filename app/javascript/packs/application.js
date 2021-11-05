@@ -15,5 +15,6 @@ import "chartkick/chart.js"
 import './tag_filter';
 
 
+
 Rails.start()
 ActiveStorage.start()
