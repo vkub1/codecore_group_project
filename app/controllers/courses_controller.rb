@@ -7,8 +7,8 @@ class CoursesController < ApplicationController
         @courses=Course.all
     end
     def show
-        @user = current_user
-        @enrollment = @course.enrollments.find_by(user: current_user)
+        @enrollement = @course.enrollments.find_by(user: current_user)
+
     end
     def new
         @course=Course.new
