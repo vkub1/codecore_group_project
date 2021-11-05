@@ -18,7 +18,7 @@
         You are not enrolled in this class
         <%= link_to("Enroll Now", "/users/current_user/enrollments?course_id=#{@course.id}", method: :post)%>
     <% end %>
-    <h2 class="my-3">Teacher: <%= teacher.full_name%> </h2>
+    <h2 class="my-3">Teacher: <%= teacher[0].full_name%> </h2>
 <% else %>
     <h2 class="my-3">You are teaching this course</h2>
     <div class="mb-3">
