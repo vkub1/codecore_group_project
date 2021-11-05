@@ -13,6 +13,7 @@
         <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
     <% elsif @enrollment.present? && !@enrollment.approved %>
         You enrollment in this class is pending teacher approval
+        <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
     <% else %>
         You are not enrolled in this class
         <%= link_to("Enroll Now", "/users/current_user/enrollments?course_id=#{@course.id}", method: :post)%>

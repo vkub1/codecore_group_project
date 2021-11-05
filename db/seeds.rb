@@ -85,7 +85,7 @@ end
 
 courses = Course.all
 
-10.times do 
+10.times do
     t = Tag.create(
         name: Faker::Address.city,
         category: "Location"

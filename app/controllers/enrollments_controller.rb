@@ -1,7 +1,7 @@
 class EnrollmentsController < ApplicationController
   before_action :find_enrollment, only: [:update, :destroy]
   before_action :authenticate_user!
-  # before_action :authorize_user!, only: [:update, :destroy]
+  before_action :authorize_user!, only: [:update, :destroy]
 
 
   def index
@@ -59,9 +59,9 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enrollment.find params[:id]
   end
 
-  # def authorize_user!
-  #   redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @enrollment)
-  # end
+  def authorize_user!
+    redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @enrollment)
+  end
 
 
 end

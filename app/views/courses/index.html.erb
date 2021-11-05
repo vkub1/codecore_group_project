@@ -5,7 +5,7 @@
 <div class="card col-xs-11 col-sm-11 col-md-5 col-lg-3 col-xlg-3 m-4">
     <div class="card-body">
     <h2><%= link_to(course.title, course_path(course.id))%></h2>
-    <p><%= course.description%></p>
+    <p><%= course.description.truncate_words(10)%></p>
     <p><%= course.max_students%></p>
     </div>
 </div>
