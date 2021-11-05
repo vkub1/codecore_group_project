@@ -41,5 +41,8 @@ class Ability
     can(:crud, Enrollment) do |enrollment|
       user == enrollment.user
     end
+    # can(:crud, Course) do |course|
+    #   user == course.user
+    # end
   end
 end
