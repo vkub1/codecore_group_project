@@ -8,7 +8,6 @@
         </div>
     <% end %>
 <% end%>
-
     <%= form_with model: @facility do |form| %>
     <div>
         <%= form.label :full_address %>
@@ -26,14 +25,10 @@
         <%= form.text_area :description, cols: 50, rows: 5 %>
         <br>
         <div class="tag-container">
-        <input class="tag-search" type="text" placeholder="Search by category..">
-        <%# form.collection_check_boxes :tag_ids, Tag.order(name: :ASC), :id, :name do |t| %>
-            
             <div class="tag-wrapper">
                 <%= form.label :tag_names %>
                 <%= form.text_field :tag_names %>
             </div>
-            <%# end %>
         </div>
         
         </div>
@@ -44,13 +39,14 @@
 <script>
     
     $(function(){
+        console.log($('#facility_tag_names'));
         $('#facility_tag_names').selectize({
             delimeter: ',',
             persist: false,
             labelField: 'name', //Column name in db  
             valueField: 'name', //Column name in db
             searchField: 'name', //Column in db
-            options: <% Tag.select(:name).to_json(except: [:id]).html_safe %>,
+            options: <%= Tag.joins("LEFT JOIN taggings ON tags.id = taggings.tag_id").where('facility_id IS NOT NULL').select(:name).to_json(except: [:id]).html_safe %>,
             //The above line selects only names from tags table and converts them to
             //a json array of objects without including ids and makes sure its safe html string
             //options: [{"name": "first tag"}, {"name":"second tag"}, ..., {"name": "last tag"}]
@@ -60,7 +56,6 @@
                 }
             }
         })
-    })
     })
 </script>
 

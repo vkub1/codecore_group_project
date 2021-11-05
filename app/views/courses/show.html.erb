@@ -1,9 +1,23 @@
 
 <h1 ><%= @course.title%> </h1>
+<div class="container tags" id="">
+    <% unless @course.tags.empty? %>
+        <p>Course Tags:
+            <% @course.tags.each do |tag| %>
+                <%= link_to(
+                    tag.name, courses_path(tag: tag.name),
+                    class: 'badge badge-pill badge-primary'
+                    )%>
+            <% end %>
+        </p>
+    <% end %>
+</div>
 
 <p ><%= @course.description%></p>
 <p ><%= @course.max_students%></p>
 <br>
+
+
 
 <% teacher = @course.enrolled_users.where('is_teacher = true') %>
 

@@ -4,7 +4,14 @@ class CoursesController < ApplicationController
     before_action :authorize_user!, only: [:update, :destroy]
 
     def index
-        @courses = Course.all
+        if params[:tag]
+            @tag = Tag.find_or_initialize_by(name: params[:tag])
+            @courses = @tag.courses.order('updated_at DESC')
+            @taggings = Tagging.where('course_id IS NOT NULL')
+          else
+            @courses = Course.all
+            @taggings = Tagging.where('course_id IS NOT NULL')
+          end
     end
     def show
         if @course.bookings.where('end_time > ?', Time.now).count > 0
@@ -52,7 +59,7 @@ class CoursesController < ApplicationController
     end
 
     def course_params
-        params.require(:course).permit(:title,:description,:max_students, tag_ids:[])
+        params.require(:course).permit(:title,:description,:max_students, :tag_names)
     end
     def authorize_user!
         redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @course)

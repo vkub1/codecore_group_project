@@ -4,7 +4,6 @@ class FacilitiesController < ApplicationController
   def index
     if params[:tag]
       @tag = Tag.find_or_initialize_by(name: params[:tag])
-      @tag = Tag.find_or_initialize_by(name: params[:tag])
       @facilities = @tag.facilities.order('updated_at DESC')
       @taggings = Tagging.where('facility_id IS NOT NULL')
     else
@@ -44,7 +43,7 @@ class FacilitiesController < ApplicationController
   def update
     @facility = Facility.find params[:id]
     if current_user&.is_admin?
-      if @facility.update(params.require(:facility).permit(:full_address, :features))
+      if @facility.update(facility_params)
         redirect_to facility_path(@facility.id)
       else
         render :edit
@@ -71,6 +70,6 @@ class FacilitiesController < ApplicationController
   private 
 
   def facility_params
-    params.require(:facility).permit(:full_address, :features, tag_names:[], tag_categories:[])
+    params.require(:facility).permit(:full_address, :features, :tag_names)
   end
 end

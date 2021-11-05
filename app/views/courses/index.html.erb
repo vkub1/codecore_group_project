@@ -1,5 +1,24 @@
+<% if @tag.present? %>
+    <h2>Showing Courses tagged by:
+        <span class="badge badge-pill badge-primary"><%= @tag.name %></span>
+    </h2>
+    <%= link_to "See all courses", courses_path %>
+<% end%>
+
+<% if @taggings.present? %>
+    <h2>Filter Courses tagged by:
+    </h2>
+    <% @taggings.each do |tagging| %>
+      <%= link_to(
+        tagging.tag.name, courses_path(tag: tagging.tag.name),
+        class: 'badge badge-pill badge-primary'
+      )%>
+    <% end %>
+<% end%>
 <div class="container">
 <div class="row">
+
+
 
 <% @courses.each do |course|%>
 <div class="card col-xs-11 col-sm-11 col-md-5 col-lg-3 col-xlg-3 m-4">
