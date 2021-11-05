@@ -45,7 +45,7 @@ class EnrollmentsController < ApplicationController
       @notification = Notification.find params[:nid]
       @notification.update(read: true)
       Notification.create(message: "Your request to enroll in #{@course.title} has been declined", accepted: false, sender_id: @teacher.user_id, receiver_id: @enrollment.user.id, is_request: false)
-      redirect_to user_notifications_path, notice: "Request denied"
+      redirect_to user_notifications_path(@notification.receiver), notice: "You have denied #{User.find(@notification.sender_id).full_name}'s request to enroll in the #{@course.title} course"
     else
       Notification.create(message: "#{@enrollment.user.first_name} has cancelled their enrollment for your #{@course.title} course", accepted: false, sender_id: @enrollment.user.id, receiver_id: @teacher.user_id, is_request: false)
       flash[:alert] = @enrollment.errors.full_messages

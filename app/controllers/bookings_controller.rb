@@ -41,7 +41,7 @@ class BookingsController < ApplicationController
             @notification = Notification.find params[:nid]
             @notification.update(read: true)
             Notification.create(message: "Your request to book facility ##{@booking.facility_id} has been denied", accepted: false, sender_id: @notification.receiver_id, receiver_id: @notification.sender_id, is_request: false)
-            redirect_to user_notifications_path(current_user), notice: "Request denied"
+            redirect_to user_notifications_path(@notification.receiver), notice: "You have denied #{@notification.sender.full_name}'s request to book a facility"
         else
             Notification.create(message: "#{current_user.first_name} has cancelled their reservation for facility ##{@booking.facility_id}", accepted: false, sender_id: current_user.id, receiver_id: @admin.id, is_request: false)
             redirect_to facilities_path, alert: "Your booking is cancelled"
@@ -67,7 +67,7 @@ class BookingsController < ApplicationController
             @notification = Notification.find params[:nid]
             @notification.update(read: true)
             Notification.create(message: "Your request to book facility ##{@booking.facility_id} has been approved", accepted: true, sender_id: @notification.receiver_id, receiver_id: @notification.sender_id, is_request: false)
-            redirect_to user_notifications_path(@notification.receiver), notice: "You have approved #{User.find(@notification.sender).full_name} request to book a facility"     
+            redirect_to user_notifications_path(@notification.receiver), notice: "You have approved #{@notification.sender.full_name}'s' request to book a facility"     
         elsif @booking.update(booking_params)
             redirect_to course_bookings_path(@course.id), notice: 'Booking created!'
         else
