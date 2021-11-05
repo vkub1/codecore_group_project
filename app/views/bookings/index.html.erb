@@ -2,7 +2,7 @@
     <div class="container my-3 border border-black">
         <h1><%= course.title %></h1>
         <% course.bookings.each do |booking| %>
-            <div class="card my-3">
+            <div class="card my-3 d-flex flex-direction-column">
                 <% if course.bookings.length == 0 %>
                     You have not booked a facility for this course yet
                 <% else %>
@@ -12,7 +12,7 @@
                     <hr>
                     <%= link_to "See facility details", facility_path(facility.id) %>
                     <% if booking.approved? %>
-                        <%= link_to "Cancel Booking", course_booking_path, method: :delete, data:{confirm:"Are you sure you want to delete?"} %>
+                        <%= link_to "Cancel Booking", course_booking_path(course.id, booking.id), method: :delete, data:{confirm:"Are you sure you want to delete?"} %>
                     <% end %>
                 <% end %>
             </div>
