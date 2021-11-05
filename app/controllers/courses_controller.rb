@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
     before_action :authorize_user!, only: [:update, :destroy]
 
     def index
-        @courses=Course.all
+        @courses = Course.all
     end
     def show
         @enrollment = @course.enrollments.find_by(user: current_user)
