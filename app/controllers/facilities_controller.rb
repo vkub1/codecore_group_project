@@ -1,6 +1,18 @@
 class FacilitiesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
+  def filter
+    if params[:tag]
+      @tag = Tag.find_or_initialize_by(name: params[:tag])
+      @tag = Tag.find_or_initialize_by(name: params[:tag])
+      @facilities = @tag.facilities.order('updated_at DESC')
+      @taggings = Tagging.where('facility_id IS NOT NULL')
+    else
+      @facilities = Facility.all.order(created_at: :DESC)
+      @taggings = Tagging.where('facility_id IS NOT NULL')
+    end
+  end
+
   def index
     if params[:tag]
       @tag = Tag.find_or_initialize_by(name: params[:tag])
@@ -11,7 +23,6 @@ class FacilitiesController < ApplicationController
       @facilities = Facility.all.order(created_at: :DESC)
       @taggings = Tagging.where('facility_id IS NOT NULL')
     end
-
   end
 
   def show

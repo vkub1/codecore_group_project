@@ -25,7 +25,12 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   get('/booked_facilities', {to: "bookings#index", as: 'booked_facilities'})
+
+
+  get('/filtered_facilities', {to: "facilities#filter", as: 'filtered_facilities'})
+
   get('/booked_calendar', {to: "bookings#calendar", as: 'booked_calendar'})
+
 
 
 end

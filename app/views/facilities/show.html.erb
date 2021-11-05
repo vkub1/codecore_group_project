@@ -9,37 +9,34 @@
     <div class="container-lg">
         <div class="row">
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
         </div>
     </div>
 </section>
 <hr>
-
 </div>
 <br>
 <br>
-
 <div class="container" style="justify-content: flex-end">
-    
     <div>
         <% if current_user&.is_admin? %>
             <%= link_to 'Edit', edit_facility_path, class: "btn btn-outline-info"%>
@@ -59,7 +56,7 @@
         <small><p> Tags:</small>
             <% @facility.tags.each do |tag| %>
                 <%= link_to(
-                    tag.name, facilities_path(tag: tag.name), class: "badge badge-pill badge-primary"
+                    tag.name, filtered_facilities_path(tag: tag.name), class: "badge badge-pill badge-primary"
                 )%>
             <% end %>
         </p>
