@@ -73,6 +73,7 @@ GEM
     builder (3.2.4)
     byebug (11.1.3)
     cancancan (1.17.0)
+    chartkick (4.1.0)
     concurrent-ruby (1.1.9)
     cowsay (0.3.0)
     crass (1.0.6)
@@ -201,6 +202,7 @@ DEPENDENCIES
   bootstrap (~> 4.6.0)
   byebug
   cancancan (~> 1.15)
+  chartkick
   cowsay (~> 0.3.0)
   faker
   jbuilder (~> 2.7)

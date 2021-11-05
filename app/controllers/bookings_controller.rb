@@ -1,7 +1,9 @@
 class BookingsController < ApplicationController
 
+    
+
     before_action :find_booking, only: [:edit, :update, :show, :destroy]
-    before_action :find_course, except: [:index]  
+    before_action :find_course, except: [:index, :calendar ]  
     #before_action :authorize_user!
 
     def index
@@ -11,6 +13,70 @@ class BookingsController < ApplicationController
             @courses.push(Course.find(enrollment.course_id))
         end
 
+    end
+
+    def calendar    
+        @bookings = Booking.all;
+
+
+       # @bookings = Booking.where( 'id= 2');
+        @booking_day_array =[]
+        @booking_num_array=[]
+        @booking_list_array= Hash.new
+        @bookings.each do |booking|
+            ##start_day=booking.start_time.strftime("%m/%d/%Y")
+            #end_day=booking.end_time.strftime("%m/%d/%Y")
+            #puts booking.start_time
+            #puts booking.end_time
+            @temp_day=booking.start_time
+            while  @temp_day < booking.end_time
+
+                #byebug
+
+                @key=@temp_day.strftime("%m/%d/%Y")
+                if @booking_list_array.key?(@key) then
+                    value = @booking_list_array[@key]+booking.facility.full_address
+                    @booking_list_array[@key] =  value                   
+                else    
+                    @booking_list_array[@key] = booking.facility.full_address
+                end   
+
+                @temp_day=@temp_day  +1.day
+                #puts @temp_day
+            end     
+
+           
+
+        end 
+        #puts @booking_list_array
+        key_string=''
+        value_string=''
+        @booking_list_array.each do |key, value|
+           # puts key
+           if key_string.empty? then 
+                key_string ='"'+key+'"'
+           else
+                key_string +=',"'+key+'"'
+           end      
+           # puts value 
+           if value_string.empty? then
+                value_string +='"'+value+'"'
+           else
+                value_string +=',"'+value+'"'
+           end 
+        end
+
+        @key_string ="var booking_day_array = [" + key_string + "];"
+        @value_string="var booking_num_array = [" + value_string +"];"
+        #byebug
+
+       
+        #var booking_day_array = ["11/11/2021", "11/20/2021", "11/26/2021"];
+        #var booking_num_array = ["booked", "booked", "booked"];
+
+        @booking_pie=@bookings.group(:approved)
+        @approved = @booking_pie.count[true]
+        @inprogress= @booking_pie.count[false]
     end
 
     def new
@@ -75,6 +141,7 @@ class BookingsController < ApplicationController
         end
     end
 
+    
 
     private 
 

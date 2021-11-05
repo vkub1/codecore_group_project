@@ -25,6 +25,7 @@ gem 'bootstrap', '~> 4.6.0'
 gem 'selectize-rails'
 gem 'faker'
 gem 'jquery-rails'
+gem "chartkick"
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

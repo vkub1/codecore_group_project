@@ -12,6 +12,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap"
 import './selectize';
+import "chartkick/chart.js"
 
 Rails.start()
 ActiveStorage.start()
