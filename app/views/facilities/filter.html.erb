@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>View by Filtered</h1>
+</div>
+<div class="container" style="justify-content: flex-start">
+<% if @tag.present? %>
+<h6>Filtering by:</h6>
+        <span class="badge badge-pill badge-primary"> <%= @tag.name %></span>
+    <%= link_to "Clear Filters", facilities_path, class:"badge badge-pill badge-danger" %>
+<% end%>
+</div>
+<br>
+<br>
+<div class="container">
+    <% @facilities.each do |facility| %>
+    <div class="card">
+    <div class="card-header">
+        <h5><%= facility.full_address %></h5>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Features & Amenities</h5>
+        <p class="card-text"><%= facility.features %></p>
+        <%= link_to "More Details", facility_path(facility.id), class:"btn btn-primary" %>
+    </div>
+    </div>
+    <% end %>
+</div>
