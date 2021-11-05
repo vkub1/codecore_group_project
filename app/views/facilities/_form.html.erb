@@ -13,36 +13,33 @@
     <div>
         <%= form.label :full_address %>
         <br>
-        <%= form.text_field :full_address %>
+        <%= form.text_field :full_address, class:"form-control" %>
     </div>
     <div>
         <%= form.label :features %>
         <br>
-        <%= form.text_field :features %>
+        <%= form.text_field :features, class:"form-control" %>
     </div>
+    <br>
     <div>
-        <%= form.label :description %>
-        <br>
-        <%= form.text_area :description, cols: 50, rows: 5 %>
-        <br>
         <div class="tag-container">
-        <input class="tag-search" type="text" placeholder="Search by category..">
-        <%# form.collection_check_boxes :tag_ids, Tag.order(name: :ASC), :id, :name do |t| %>
-            
+            Search
+            <input class="tag-search form-control" type="text" placeholder="">
+            <%# form.collection_check_boxes :tag_ids, Tag.order(name: :ASC), :id, :name do |t| %>
+            <br>
             <div class="tag-wrapper">
                 <%= form.label :tag_names %>
-                <%= form.text_field :tag_names %>
+                <%= form.text_field :tag_names, class:"form-control" %>
             </div>
             <%# end %>
-        </div>
-        
+            </div>
         </div>
     </div>
-    <%= form.submit %>
+    <br>
+    <%= form.submit class:"btn btn-outline-primary" %>
     <% end %>
 
 <script>
-    
     $(function(){
         $('#facility_tag_names').selectize({
             delimeter: ',',
