@@ -38,6 +38,7 @@ class EnrollmentsController < ApplicationController
     else
       Notification.create(message: "#{@enrollment.user.first_name} has cancelled their enrollment for your #{@enrollment.course_id.title} course", accepted: false, sender_id: @enrollment.user.id, receiver_id: @teacher.id, is_request: false)
     end
-  end
-
+    @enrollment.destroy
+    flash[:alert] = @enrollment.errors.full_messages
+    redirect_to courses_path, alert: "Your course is cancelled"
 end

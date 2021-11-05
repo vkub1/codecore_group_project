@@ -7,16 +7,17 @@ class CoursesController < ApplicationController
         @courses=Course.all
     end
     def show
-        @enrollement = @course.enrollments.find_by(user: current_user)
-
+        @enrollment = @course.enrollments.find_by(user: current_user)
+        # byebug
     end
     def new
         @course=Course.new
     end
     def create
         @course = Course.new(course_params)
-        #@course.user = current_user
+        # @course.user = current_user
         if @course.save
+            Enrollment.create({user_id: current_user, course_id: @course, is_teacher: true, approved: true})
            # flash[:notice] = "course created successfully!"
             redirect_to course_path(@course.id)
         else
