@@ -15,13 +15,8 @@ class UsersController < ApplicationController
     end
 
     def admin
-        # if current_user.is_admin
-        #   @enrollment = Enrollment.find params[:id] 
-        #     redirect_to admin_path, notice: ''
-        # else
-        #      redirect_to root_path, alert: 'Not Authorized'
-        # end
-
+       @facilities = Facility.all
+        
     end   
     
     private
