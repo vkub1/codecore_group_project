@@ -1,5 +1,5 @@
-<h1>Sign In</h1>
-
+<h3>Sign In</h3>
+<br>
 <%= form_with url:session_path do |form| %>
 <div>
     <%= form.label :email%>
@@ -9,5 +9,7 @@
     <%= form.label :password%>
     <%= form.text_field :password, class:"form-control", type:"password"%>
 </div>
-<%= form.submit "Sign In"%>
+<br>
+<%= form.submit "Sign In", class: "btn btn-outline-primary"%>
+
 <% end %>

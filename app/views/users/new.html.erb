@@ -1,12 +1,12 @@
-<h1>Sign Up </h1>
-
+<h3>Sign Up </h3>
+<br>
 <%= form_with model: @user do |form| %>
     <% if @user.errors.any?%>
         <p><%= @user.errors.full_messages.join(', ')%></p>
     <% end%>
     <div>
         <%= form.label :first_name%>
-        <%= form.text_field :first_name, class:"form-control"%>
+        <%= form.text_field :first_name, class:"form-control "%>
     </div>
     <div>
         <%= form.label :last_name%>
@@ -24,5 +24,6 @@
         <%= form.label :password_confirmation%>
         <%= form.text_field :password_confirmation, class:"form-control", type:"password"%>
     </div>
-    <%= form.submit "Sign Up"%>
+    <br>
+    <%= form.submit "Sign Up", class: "btn btn-outline-primary"%>
 <% end %>

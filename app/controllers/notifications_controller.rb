@@ -10,4 +10,5 @@ class NotificationsController < ApplicationController
     @notification.update(read: true)
     redirect_to user_notifications_path(current_user)
   end
+  
 end
