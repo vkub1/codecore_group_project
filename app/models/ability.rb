@@ -34,12 +34,14 @@ class Ability
     #   user == booking.user
     # end
 
-    # can(:crud, Cources) do |course|
-    #   user == course.user
-    # end
     alias_action(:create, :read, :update, :destroy, to: :crud)
+
     can(:crud, Enrollment) do |enrollment|
       user == enrollment.user
+    end
+
+    can(:crud, Course) do |course|
+      user == course.teacher
     end
   end
 end
