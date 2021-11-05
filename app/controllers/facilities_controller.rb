@@ -51,10 +51,10 @@ class FacilitiesController < ApplicationController
       if @facility.destroy
         redirect_to facilities_path
       else
-        redirect_to root_path, alert: "Only an Admin may remove a facility!"
+        redirect_to root_path, alert: "There was a problem deleting this facility!"
       end
     else
-      redirect_to root_path, alert: "Only an Admin may remove a facility!"
+      redirect_to root_path, alert: "Only an Admin may delete a facility!"
     end
     
   end
