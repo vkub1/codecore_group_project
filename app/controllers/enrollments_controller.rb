@@ -1,11 +1,11 @@
 class EnrollmentsController < ApplicationController
   before_action :find_enrollment, only: [:update, :destroy]
   before_action :authenticate_user!
-  before_action :authorize_user!, only: [:update, :destroy]
+  # before_action :authorize_user!, only: [:update, :destroy]
 
 
   def index
-    @enrollments = Enrollment.order(created_at: :desc)
+    @enrollments = current_user.enrollments.order(created_at: :desc)
  
   end
 
@@ -24,13 +24,13 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
-    @enrollment.update({approved: true})
+    @enrollment.update(approved: true)
     @course = Course.find @enrollment.course_id
     @teacher = Enrollment.where("is_teacher = ? AND course_id = ?", true, @course.id)[0]
     @notification = Notification.find params[:nid]
     @notification.update(read: true)
     Notification.create(message: "Your request to enroll in #{@course.title} has been approved", accepted: true, sender_id: @teacher.user_id, receiver_id: @enrollment.user.id, is_request: false)
-    redirect_to user_notifications_path, notice: "Request approved"
+    redirect_to user_notifications_path(@notification.receiver), notice: "You have approved #{User.find(@notification.sender_id).full_name}'s request to enroll in the #{@course.title} course"
     # redirect_to courses_path
   end
 
@@ -45,6 +45,7 @@ class EnrollmentsController < ApplicationController
       @notification = Notification.find params[:nid]
       @notification.update(read: true)
       Notification.create(message: "Your request to enroll in #{@course.title} has been declined", accepted: false, sender_id: @teacher.user_id, receiver_id: @enrollment.user.id, is_request: false)
+      redirect_to user_notifications_path, notice: "Request denied"
     else
       Notification.create(message: "#{@enrollment.user.first_name} has cancelled their enrollment for your #{@course.title} course", accepted: false, sender_id: @enrollment.user.id, receiver_id: @teacher.user_id, is_request: false)
       flash[:alert] = @enrollment.errors.full_messages
@@ -58,9 +59,9 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enrollment.find params[:id]
   end
 
-  def authorize_user!
-    redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @enrollment)
-  end
+  # def authorize_user!
+  #   redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @enrollment)
+  # end
 
 
 end
