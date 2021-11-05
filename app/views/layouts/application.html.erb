@@ -8,76 +8,54 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-
-  <style>
-    body {
-      padding: 50px;
-    }
-    .swiper {
-        height: 600px;
-      }
-    .swiper-slide {
-        /* background: #ccc; */
-        background-image: url('office.jpg');
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 40px;
-      }
-      .swiper-slide>a {
-        text-decoration: none;
-        }
-  </style>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <script src="https://kit.fontawesome.com/e5acfba74d.js" crossorigin="anonymous"></script>
   </head>
-
   <body>
-
-  <nav class="navbar navbar-light bg-light justify-content-between">
-      <ul class="nav">
-        <a href="/" class="nav-link ml font">Home</a>
-      </ul>
-      <ul class="nav">
-      
-    <% if user_signed_in? %>
+    <header>
+      <nav class="navbar">
+        <a class="navbar-brand" href="<%= root_path%>"> <%= image_tag "logo.png" %> </a>
         
-            Hello! <%= current_user.full_name %>
-          <li><%= link_to "Sign Out", session_path, class: 'nav-link', method: :delete, data: {confirm: "Are you sure you want to Sign out?"} %></li>
-            <%if current_user.is_admin%>
-              <%= link_to 'Admin Panel', admin_path %>
-            <% end %>
-
+        <ul class="nav ml-auto">
+        
+          <% if user_signed_in? %>
+              <li class="nav-item nav-link"> Hello <%= current_user.full_name %></li>
+              <li class="nav-item"><%= link_to "Logout", session_path, method: :delete, data: {confirm: "Are you sure you want to logout?"}, class:"nav-link"%></li>
+                <li class="nav-item d-flex"><%= link_to "Notifications", user_notifications_path(current_user), class:"nav-link" %>
+                <% notifications = current_user.received_notifications.where('read = false')%>
+                <% if notifications.any? %>
+                  <div class="notification rounded-circle px-1 text-center"><%= notifications.length %></div>
+                <% end %>
+                </li>
+              
+              <% if current_user.enrollments.length > 0 %>
+                <li class="nav-item"><%=  link_to  'Enrolled Classes', user_enrollments_path(current_user), class:"nav-link"  %></li>
+              <% end %>
+              <% if current_user.enrollments.where('is_teacher = true').count > 0%>
+                <li class="nav-item"><%= link_to 'Booked Facilities', booked_facilities_path, class:"nav-link" %></li>
+              <% end %>
+              <%if current_user.is_admin%>
+                <li class="nav-item"><%= link_to 'Admin Panel', admin_path, class:"nav-link" %></li>
+              <% end %>
+              <li class="nav-item"><%= link_to 'Create Course', new_course_path, class:"nav-link" %></li>
           <% else %>
-          <li><%=  link_to  'Sign In', new_session_path, class: 'nav-link'  %></li>
-          <li><%=  link_to  'Sign Up', new_user_path, class: 'nav-link' %></li>
-        <% end %>
-      </ul>
-  </nav>
-
-  <% if flash[:notice].present?%>
-    <div class="alert alert-success aler-dismissible fade show font-s" role="alert">
-      <%= flash[:notice]%>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">
-            &times;
-          </span>
-          </button>
-        </div>
-        
-    <% elsif flash[:alert].present?%>
-      <div class="alert alert-danger aler-dismissible fade show font-s" role="alert">
-          <%= flash[:alert]%>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">
-            &times;
-          </span>
-          </button>
-      </div>
-      <% end %>
-    
+            <li class="nav-item"><%=  link_to  'Log in', new_session_path, class:"nav-link"  %></li>
+              
+            <li class="nav-item"><%=  link_to  'Sign Up', new_user_path, class:"nav-link" %></li>
+          <% end %>
+          <li class="nav-item"><%=  link_to  'Courses', courses_path, class:"nav-link" %></li>
+          <li class="nav-item"><%=  link_to  'Facilities', facilities_path, class:"nav-link" %></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
+   <% if flash[:alert]%>
+   <%= flash[:alert]%>
+   <%end%>
+   <%= flash[:notice] %>
     <%= yield %>
+    </main>
   </body>
 </html>

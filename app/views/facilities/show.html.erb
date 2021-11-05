@@ -1,28 +1,77 @@
 <h1>Facility Details</h1>
 <%# place holder links %>
 <div>
-    <%= link_to 'All Facilities', facilities_index_path %> |
-    <%= link_to 'Add Facility', new_facility_path %> |
-    <%= link_to 'Edit', edit_facility_path%> |
-    <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"} %>
+
+
+        <%= link_to 'All Facilities', facilities_index_path %> 
+    <% if current_user&.is_admin? %>
+        | <%= link_to 'Add Facility', new_facility_path %> |
+        <%= link_to 'Edit', edit_facility_path%> |
+        <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"} %>
+    <% end %>
 </div>
 <hr>
+
 <div class="">
-    <p><%= @facility.full_address %>
-    <p>Facility Features: <%= @facility.features %></p>
+    <!-- Slider main container -->
+    <div class="swiper">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..6) %>.jpg)"><%= link_to "Book Now" %></div>
+        <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..6) %>.jpg)"><%= link_to "Book Now" %></div>
+        <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..6) %>.jpg)"><%= link_to "Book Now" %></div>
+            
+        
+        ...
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar"></div>
+    </div>
+</div>
+<script>
+    const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    //   direction: 'vertical',
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+    },
+
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+
+    // And if we need scrollbar
+    scrollbar: {
+        el: '.swiper-scrollbar',
+    },
+    });
+</script>
+
+<br>
+<div class="">
+    <h4><%= @facility.full_address %></h4>
+    <br>
+    <p>Features: <%= @facility.features %></p>
 
     <% unless @facility.tags.empty? %>
         <p> Tags:
             <% @facility.tags.each do |tag| %>
-            <%= link_to(
-                tag.name, facilities_path(tag: tag.name)
-            )%>
+                <span class="badge badge-pill badge-primary"><%= tag.name %></span>
             <% end %>
         </p>
     <% end %>
 </div>
 
-<%# no routes yet for this link to work %>
-<div>
-    <%= link_to 'Book'%>
-</div>

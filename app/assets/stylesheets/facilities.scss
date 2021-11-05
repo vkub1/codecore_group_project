@@ -1,0 +1,28 @@
+main {
+    padding: 50px;
+}
+
+.swiper {
+   height: 600px;
+   width: 1440px;
+}
+
+.swiper-slide {
+    background-size: cover;
+    // background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+.swiper-slide>a {
+    
+    text-decoration: none;
+    color:white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+

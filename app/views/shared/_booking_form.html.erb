@@ -1,0 +1,37 @@
+<div class="container">
+<% form_with(model: [@course, @booking] ) do |form| %>
+            <div class="m-4">
+            <%= label_tag :Course%>
+            <%= form.text_field :course_id, :class=>'form-control', :required=>"true"%>
+            </div>
+            <div class="m-4">
+            <%= label_tag :Facilitie%>
+            <%# form.text_field :facility_id, :class=>'form-control', :required=>"true"%>
+            </div>
+            <div class="m-4">
+                <%= label_tag :Start_Date%>
+                <%# form.text_field :title, :class=>'form-control', :required=>"true"%>
+            </div>
+
+            <div class="m-4">
+                <%= label_tag :Start_Time %>
+                <%# form.text_field :title, :class=>'form-control', :required=>"true"%>
+            </div>
+            <div class="m-4">
+                <%= label_tag :End_date %>
+                <%# form.date_field :due_date, :required=>"true"%>
+            </div>
+            <div class="m-4">
+                <%= label_tag :End_time %>
+                <%# form.date_field :due_date, :required=>"true"%>
+            </div>
+            <div class="m-4">
+                <%= label_tag :comment %>
+                <%# form.select :completed, [['Inprogress', false], ['Complete', true]], {}, {class: "form-control"}%>
+            </div>           
+            <div class="m-4">
+            <%#form.submit%>
+            </div>
+
+<% end %>
+</div>
