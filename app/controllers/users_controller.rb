@@ -15,14 +15,8 @@ class UsersController < ApplicationController
     end
 
     def admin
-        # if current_user.is_admin
+       @facilities = Facility.all
         
-            
-        #     redirect_to admin_path, notice: ''
-        # else
-        #      redirect_to root_path, alert: 'Not Authorized'
-        # end
-
     end   
     
     private

@@ -85,14 +85,14 @@ end
 
 courses = Course.all
 
-10.times do 
+10.times do
     t = Tag.create(
         name: Faker::Address.city,
         category: "Location"
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.sentence(word_count: 150),
+        features: Faker::Lorem.sentence(word_count: 15),
     )
     if f.valid? 
         user_sample = users.shuffle.slice(0, 10)

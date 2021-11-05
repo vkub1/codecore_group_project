@@ -1,6 +1,17 @@
 class FacilitiesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
-    @facilities = Facility.all.order(created_at: :DESC)
+    if params[:tag]
+      @tag = Tag.find_or_initialize_by(name: params[:tag])
+      @tag = Tag.find_or_initialize_by(name: params[:tag])
+      @facilities = @tag.facilities.order('updated_at DESC')
+      @taggings = Tagging.where('facility_id IS NOT NULL')
+    else
+      @facilities = Facility.all.order(created_at: :DESC)
+      @taggings = Tagging.where('facility_id IS NOT NULL')
+    end
+
   end
 
   def show
@@ -13,15 +24,15 @@ class FacilitiesController < ApplicationController
 
   def create
     @facility = Facility.new(facility_params)
-    @facility.user = current_user
+    # @facility.user = current_user
     if current_user&.is_admin?
       if @facility.save
         redirect_to facility_path(@facility)
       else
-        redirect_to root_path, alert: "Only an Admin can perform this action!"
+        render :new
       end
     else
-      redirect_to root_path, alert: "Only an Admin can perform this action!"
+      redirect_to root_path, alert: "Only an Admin may add a new facility!"
     end
     
   end
@@ -36,10 +47,10 @@ class FacilitiesController < ApplicationController
       if @facility.update(params.require(:facility).permit(:full_address, :features))
         redirect_to facility_path(@facility.id)
       else
-        redirect_to root_path, alert: "Only an Admin can perform this action!"
+        render :edit
       end
     else
-      redirect_to root_path, alert: "Only an Admin can perform this action!"
+      redirect_to root_path, alert: "Only an Admin may make updates!"
     end
   end
 
@@ -49,10 +60,10 @@ class FacilitiesController < ApplicationController
       if @facility.destroy
         redirect_to facilities_path
       else
-        redirect_to root_path, alert: "Only an Admin can perform this action!"
+        redirect_to root_path, alert: "There was a problem deleting this facility!"
       end
     else
-      redirect_to root_path, alert: "Only an Admin can perform this action!"
+      redirect_to root_path, alert: "Only an Admin may delete a facility!"
     end
     
   end
@@ -60,6 +71,6 @@ class FacilitiesController < ApplicationController
   private 
 
   def facility_params
-    params.require(:facility).permit(:full_address, :features, tag_ids:[])
+    params.require(:facility).permit(:full_address, :features, tag_names:[], tag_categories:[])
   end
 end

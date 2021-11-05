@@ -1,39 +1,6 @@
-<%# placeholder links %>
-<div>
-    <%= link_to 'All Facilities', facilities_index_path %> |
-    <%= link_to 'Add Facility', new_facility_path %> |
-    <%= link_to 'Book'%>
+<div class="container">
+    <h1>Edit Facility</h1>
 </div>
 <br>
-<div class="">
-    <%= form_with model: @facility do |form| %>
-    <div>
-        <%= form.label :full_address %>
-        <br>
-        <%= form.text_field :full_address %>
-    </div>
-    <div>
-        <%= form.label :features %>
-        <br>
-        <%= form.text_field :features %>
-    </div>
-    <div>
-        <%= form.label :description %>
-        <br>
-        <%= form.text_area :description, cols: 50, rows: 5 %>
-        <div class="tag-wrapper">
-        <br>
-        <%= form.collection_check_boxes :tag_ids, Tag.order(name: :ASC), :id, :name do |t| %>
-            <div class="tag-wrapper">
-                <%= t.check_box %>
-                <%= t.text %>
-            </div>
-        <% end %>
-        <%# form.label :tag_names %>
-        <br>
-        <%# form.text_field :tag_names %>
-        </div>
-    </div>
-    <%= form.submit %>
-    <% end %>
-</div>
+
+<%= render "form" %>

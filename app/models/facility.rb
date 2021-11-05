@@ -5,8 +5,9 @@ class Facility < ApplicationRecord
     has_many :tags, through: :taggings
 
     
-    validates :full_address, presence: { message: "an address must be provided" }, uniqueness: true
+    validates :full_address, presence: { message: "must be provided" }, uniqueness: true
     validates :features, presence: true
+    
     def tag_names
         self.tags.map(&:name).join(", ")
     end
@@ -17,4 +18,11 @@ class Facility < ApplicationRecord
             Tag.find_or_initialize_by(name: tag_name)
         end
     end
+
+    def tag_categories=(rhs)
+        self.tags = rhs.strip.split(/\s*,\s*/).map do |tag_category|
+            Tag.find_or_initialize_by(category: tag_category)
+        end
+    end
+
 end

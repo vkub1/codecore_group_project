@@ -7,9 +7,9 @@ class CoursesController < ApplicationController
         @courses = Course.all
     end
     def show
-        if @course.bookings.where('end_time > ?', Time.now).count > 0
-            flash[:alert] = "All of your course bookings have expired!"
-        end
+        # if @course.bookings.where('end_time > ?', Time.now).count > 0
+        #     flash[:alert] = "All of your course bookings have expired!"
+        # end
         @enrollment = @course.enrollments.find_by(user: current_user)
         # byebug
     end
