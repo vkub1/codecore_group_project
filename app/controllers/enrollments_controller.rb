@@ -1,9 +1,12 @@
 class EnrollmentsController < ApplicationController
+  before_action :find_enrollment, only: [:update, :destroy]
+  before_action :authenticate_user!
+  before_action :authorize_user!, only: [:update, :destroy]
+
 
   def index
     @enrollments = Enrollment.order(created_at: :desc)
-    @enrollment = Enrollment.find.params[:id]
-    @enrollment.course = @course
+ 
   end
 
   def create
@@ -21,17 +24,20 @@ class EnrollmentsController < ApplicationController
   end
 
   def update
-    @enrollment = Enrollment.find params[:id]
+    @enrollment.update({approved: true})
     @course = Course.find @enrollment.course_id
     @teacher = Enrollment.where("is_teacher = ? AND course_id = ?", true, @course.id)[0]
     @notification = Notification.find params[:nid]
     @notification.update(read: true)
     Notification.create(message: "Your request to enroll in #{@course.title} has been approved", accepted: true, sender_id: @teacher.user_id, receiver_id: @enrollment.user.id, is_request: false)
     redirect_to user_notifications_path, notice: "Request approved"
+    # redirect_to courses_path
   end
 
+
+
   def destroy
-    @enrollment = Enrollment.find params[:id]
+    # @enrollment = Enrollment.find params[:id]
     @enrollment.destroy
     @course = Course.find @enrollment.course_id
     @teacher = Enrollment.where("is_teacher = ? AND course_id = ?", true, @course.id)[0]
@@ -45,5 +51,16 @@ class EnrollmentsController < ApplicationController
       redirect_to courses_path, alert: "Your course is cancelled"
     end
   end
+
+
+  private
+  def find_enrollment
+    @enrollment = Enrollment.find params[:id]
+  end
+
+  def authorize_user!
+    redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @enrollment)
+  end
+
 
 end

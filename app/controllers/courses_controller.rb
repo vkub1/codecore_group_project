@@ -17,7 +17,7 @@ class CoursesController < ApplicationController
         @course = Course.new(course_params)
         # @course.user = current_user
         if @course.save
-            Enrollment.create(user_id: current_user.id, course_id: @course.id, is_teacher: true, approved: true)
+            Enrollment.create(user_id: current_user.id, course_id:@course.id, is_teacher: true, approved: true)
            # flash[:notice] = "course created successfully!"
             redirect_to course_path(@course.id)
         else
