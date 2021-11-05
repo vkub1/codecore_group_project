@@ -1,8 +1,9 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_user!
 
   def index
     @user = User.find params[:user_id]
-    @notifications = @user.received_notifications
+    @notifications = @user.received_notifications.order(created_at: :desc)
   end
 
   def update

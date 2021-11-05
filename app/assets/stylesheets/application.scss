@@ -14,20 +14,17 @@
  *= require_self
 
  */
- @import "bootstrap";
- @import "selectize";
- @import "selectize.bootstrap3";
+@import 'bootstrap';
+@import 'selectize';
+@import 'selectize.bootstrap3';
 
- .border-3 {
-     border-width: 3px !important;
- }
+.border-3 {
+  border-width: 3px !important;
+}
 
- .notification {
-     width: fit-content;
-     height: fit-content;
-     color: white;
-     background-color: red;
-     
- }
-
-
+.notification {
+  width: fit-content;
+  height: fit-content;
+  color: white;
+  background-color: red;
+}

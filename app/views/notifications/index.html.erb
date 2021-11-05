@@ -1,26 +1,40 @@
 <div class="container-fluid">
   <h1>Notifications</h1>
+</div>
+<div class="container flex-column">
   <% if (@notifications) %>
     <% @notifications.each do |n| %>
-      <% if n.read == false %>
-        <% if (n.is_request && n.request_type == 'enrollment') %>
-          <%= button_to "X", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}&notif=true", method: :delete %>
-        <% elsif (n.is_request && n.request_type == 'booking') %>
-          <%= button_to "X", "/courses/#{n.booking.course_id}/bookings/#{n.booking_id}?nid=#{n.id}&notif=true", method: :delete %>
-        <% else %>
-          <%= button_to "X", user_notification_path(n.receiver_id, n.id), method: :patch %>
-        <% end %>
-        <div>
-          <h3><%= n.message %></h3>
-          <% if (n.is_request && n.request_type == 'enrollment') %>
-            <%= link_to "Approve", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}", method: :patch %>
-            <%= link_to "Deny", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}&notif=true", method: :delete %>
-          <% elsif (n.is_request && n.request_type == 'booking') %>
-            <%= link_to "Approve", "/courses/#{n.booking.course_id}/bookings/#{n.booking_id}?nid=#{n.id}&notif=true", method: :patch %>
-            <%= link_to "Deny", "/courses/#{n.booking.course_id}/bookings/#{n.booking_id}?nid=#{n.id}&notif=true", method: :delete %>
-          <% end %>
-          <%= time_ago_in_words(n.created_at) %> ago
-        </div>
+        <% if n.read == false %>
+          <div class="card mb-2">
+            <div class="row no-gutters">
+              <div class="col-1">
+                <div class="card-body">
+                  <% if (n.is_request && n.request_type == 'enrollment') %>
+                    <%= link_to "X", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}&notif=true", method: :delete, class: "btn btn-outline-primary border-0" %>
+                    <% elsif (n.is_request && n.request_type == 'booking') %>
+                      <%= link_to "X", "/courses/#{n.booking.course_id}/bookings/#{n.booking_id}?nid=#{n.id}&notif=true", method: :delete, class: "btn btn-outline-primary border-0" %>
+                    <% else %>
+                      <%= link_to "X", user_notification_path(n.receiver_id, n.id), method: :patch, class: "btn btn-outline-primary border-0" %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-11">
+                <div class="card-body">
+                  <span class="card-text"><%= n.message %></span>
+                  <div class="justify-self-end"><small><%= time_ago_in_words(n.created_at) %> ago</small></div>
+                  <div class="mt-3">
+                    <% if (n.is_request && n.request_type == 'enrollment') %>
+                      <%= link_to "Approve", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}", method: :patch, class: "btn btn-outline-primary" %>
+                      <%= link_to "Deny", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}&notif=true", method: :delete, class: "btn btn-outline-danger" %>
+                    <% elsif (n.is_request && n.request_type == 'booking') %>
+                      <%= link_to "Approve", "/courses/#{n.booking.course_id}/bookings/#{n.booking_id}?nid=#{n.id}&notif=true", method: :patch, class: "btn btn-outline-primary" %>
+                      <%= link_to "Deny", "/courses/#{n.booking.course_id}/bookings/#{n.booking_id}?nid=#{n.id}&notif=true", method: :delete, class: "btn btn-outline-danger" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       <% end %>
     <% end %>
   <% end %>
