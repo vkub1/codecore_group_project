@@ -18,9 +18,13 @@
         You are not enrolled in this class
         <%= link_to("Enroll Now", "/users/current_user/enrollments?course_id=#{@course.id}", method: :post)%>
     <% end %>
-    <h2 class="my-3">Teacher: <%= teacher[0].full_name%> </h2>
+    <h2 class="my-3">Teacher: <%= teacher.full_name%> </h2>
 <% else %>
     <h2 class="my-3">You are teaching this course</h2>
+    <div class="mb-3">
+        <%= link_to "Edit", edit_course_path(@course.id), class: "btn btn-outline-warning" %>
+        <%= link_to "Delete", course_path(@course.id), method: :delete, class: "btn btn-outline-danger" %>
+    </div>
     <% if @course.facilities_booked.length == 0%>
         You haven't booked a facility yet
         <%= link_to("Book Now", new_course_booking_path(@course.id)) %>
@@ -39,7 +43,6 @@
         <% else %>
             <%= link_to("Book Facility", new_course_booking_path(@course.id)) %>
         <% end %>
-        
     <% end %>
 <% end %>
 
