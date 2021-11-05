@@ -1,2 +1,11 @@
 <h1>admin</h1>
 
+<% @facilities.each do |facility| %>
+<h1><%= facility.full_address%> </h1>
+<p>bookings:</p>
+<ul>
+    <% facility.bookings.each do |booking| %>
+        <li> <%= "#{booking.course.title} booked_from #{booking.start_time} to #{booking.end_time}"%></li>
+    <% end %>
+</ul>
+<% end %> 
