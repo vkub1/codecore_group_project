@@ -20,4 +20,7 @@ class User < ApplicationRecord
         "#{first_name} #{last_name}"
     end
 
+    def notification_count
+        self.received_notifications.where({read: false}).count
+    end
 end
