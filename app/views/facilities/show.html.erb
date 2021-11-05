@@ -1,71 +1,93 @@
-<h1>Facility Details</h1>
+<div class="container">
+<h1><%= @facility.full_address %></h1>
 <%# place holder links %>
-<div>
+</div>
 
-
-        <%= link_to 'All Facilities', facilities_index_path %> 
+<div class="container">
     <% if current_user&.is_admin? %>
-        | <%= link_to 'Add Facility', new_facility_path %> |
-        <%= link_to 'Edit', edit_facility_path%> |
+        <%= link_to 'Edit', edit_facility_path%>
         <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"} %>
     <% end %>
 </div>
+
 <hr>
 
-<div class="">
-    <!-- Slider main container -->
-    <div class="swiper">
-      <!-- Additional required wrapper -->
+<div class="container">
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        <!-- Slides -->
-        <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..6) %>.jpg)"><%= link_to "Book Now" %></div>
-        <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..6) %>.jpg)"><%= link_to "Book Now" %></div>
-        <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..6) %>.jpg)"><%= link_to "Book Now" %></div>
-            
-        
-        ...
+            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
       </div>
-      <!-- If we need pagination -->
       <div class="swiper-pagination"></div>
-
-      <!-- If we need navigation buttons -->
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
-
-      <!-- If we need scrollbar -->
-      <div class="swiper-scrollbar"></div>
     </div>
-</div>
-<script>
-    const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    //   direction: 'vertical',
-    loop: true,
 
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-    },
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-    // Navigation arrows
-    navigation: {
+    <!-- Initialize Swiper -->
+    <script>
+      const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
-    },
+    }
+      });
+    </script>
+</div>
+<br>
+<br>
+<div class="container">
+<div class="">
+    <div class="">
+        <img src="https://www.datocms-assets.com/53643/1633107606-1630957152-award-badge-star-1.svg" style="height:40px;width:auto;max-width:none" class="">
+    </div>
+    <div class="">
+        <h3 class="">High Quality</h3>
+        <p class="">Maintained and managed by our experts</p>
+    </div>
+</div>
+<div class="">
+    <div class="">
+        <img src="https://www.datocms-assets.com/53643/1633108268-1630999645-group.svg" style="height:40px;width:auto;max-width:none" class="">
+    </div>
+    <div class="">
+        <h3 class="">Affordable</h3>
+        <p class="">Flexible rates and rental times</p>
+    </div>
+</div>
+<div class="">
+    <div class="">
+        <img src="https://www.datocms-assets.com/53643/1633108254-1630999636-fingerprint.svg" style="height:40px;width:auto;max-width:none" class="">
+    </div>
+    <div class="">
+        <h3 class="">Personalized</h3>
+        <p class="">Customizable spaces to fit your needs</p>
+    </div>
+</div>
+</div>
 
-    // And if we need scrollbar
-    scrollbar: {
-        el: '.swiper-scrollbar',
-    },
-    });
-</script>
+
+
 
 <br>
-<div class="">
-    <h4><%= @facility.full_address %></h4>
+<div>
     <br>
-    <p>Features: <%= @facility.features %></p>
-
+    <div class="container">
+        <p><strong>Features:</strong> <%= @facility.features %></p>
+    </div>
+    <div class="container tags">
     <% unless @facility.tags.empty? %>
         <p> Tags:
             <% @facility.tags.each do |tag| %>
@@ -73,5 +95,10 @@
             <% end %>
         </p>
     <% end %>
+    </div>
 </div>
+
+
+
+
 
