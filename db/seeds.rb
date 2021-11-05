@@ -23,6 +23,12 @@ super_user = User.create(
     is_admin: true
 )
 
+hung = User.create(first_name: "Hung",
+    last_name: "Nguyen",
+    email: "hung@123.com",
+    password: PASSWORD,
+    is_admin: false)
+
 20.times do 
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
@@ -46,36 +52,36 @@ users = User.all
     )
 end
 
-10.times do
-    5.times do 
-        t = Tag.create(
-            name: Faker::Educator.subject,
-            category: "Interest"
+user_sample = users.shuffle.slice(0, 10)
+
+5.times do 
+    t = Tag.create(
+        name: Faker::Educator.subject,
+        category: "Interest"
+    )
+    c = Course.create(
+        title: Faker::Educator.course_name,
+        description: Faker::Lorem.sentence(word_count: 150),
+    )
+    if c.valid?
+        Enrollment.create(
+        course: c,
+        user: User.first,
+        is_teacher: true
         )
-        c = Course.create(
-            title: Faker::Educator.course_name,
-            description: Faker::Lorem.words(number: 150),
+        Tagging.create(
+            tag: t,
+            course: c
         )
-        if c.valid?
-            user_sample = users.shuffle.slice(0, 10)
+        5.times do
             Enrollment.create(
-            course: c,
-            user: user_sample[0],
-            is_teacher: true
+                course: c,
+                user: user_sample[1..10].sample
             )
-            Tagging.create(
-                tag: t,
-                course: c
-            )
-            5.times do
-                Enrollment.create(
-                    course: c,
-                    user: user_sample[1..10].sample
-                )
-            end
         end
     end
 end
+
 
 courses = Course.all
 
@@ -86,9 +92,11 @@ courses = Course.all
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 150)
+        features: Faker::Lorem.sentence(word_count: 150),
     )
-    if f.valid?
+    if f.valid? 
+        user_sample = users.shuffle.slice(0, 10)
+        #byebug
         Tagging.create(
             tag: t,
             facility: f
@@ -97,7 +105,13 @@ courses = Course.all
             course: courses.sample,
             facility: f,
             start_time: Date.yesterday,
-            end_time: Date.tomorrow
+            end_time: Date.yesterday 
         )
     end
 end
+
+facilities = Facility.all
+
+puts "generated #{facilities.count} facilities"
+puts "generated #{users.count} users"
+puts "generated #{courses.count} courses"

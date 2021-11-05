@@ -1,0 +1,19 @@
+<div class="container">
+<div class="row">
+
+<% @courses.each do |course|%>
+<div class="card ">
+    <div class="card-body">
+
+    <h2><%= link_to(course.title, course_path(course.id))%></h2>
+    <%= image_tag Faker::LoremFlickr.image(size: "100x100", search_terms: ['computer science'])  %>
+    <p><%= course.description%></p>
+    <p><%= course.max_students%></p>
+    </div>
+</div>
+<%end%>
+
+</div>
+</div>
+
+
