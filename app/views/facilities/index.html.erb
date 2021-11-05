@@ -5,6 +5,25 @@
 <div class="container">
         <%= link_to 'Add Facility', new_facility_path, class: "btn btn-outline-info" %>
 </div>
+
+<% if @tag.present? %>
+    <h2>Showing Facilities tagged by:
+        <span class="badge badge-pill badge-primary"><%= @tag.name %></span>
+    </h2>
+    <%= link_to "See all facilities", facilities_path %>
+<% end%>
+
+<% if @taggings.present? %>
+    <h2>Filter Facilities tagged by:
+    </h2>
+    <% @taggings.each do |tagging| %>
+      <%= link_to(
+        tagging.tag.name, facilities_path(tag: tagging.tag.name),
+        class: 'badge badge-pill badge-primary'
+      )%>
+    <% end %>
+<% end%>
+
 <hr>
 
 <!-- Swiper -->

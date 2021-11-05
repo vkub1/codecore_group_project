@@ -50,13 +50,19 @@
     <div class="container">
         <p><strong>Facility Features:</strong> <%= @facility.features %></p>
     </div>
-    <div class="container tags">
+    <div class="container tags" id="">
     <% unless @facility.tags.empty? %>
         <small><p> Tags:</small>
             <% @facility.tags.each do |tag| %>
                 <%= link_to(
+
                     tag.name, facilities_path(tag: tag.name), class: "badge badge-pill badge-primary"
                 )%>
+
+                    tag.name, facilities_path(tag: tag.name),
+                    class: 'badge badge-pill badge-primary'
+                    )%>
+
             <% end %>
         </p>
     <% end %>

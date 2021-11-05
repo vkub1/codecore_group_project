@@ -2,9 +2,12 @@
 <div class="row">
 
 <% @courses.each do |course|%>
-<div class="card col-xs-11 col-sm-11 col-md-5 col-lg-3 col-xlg-3 m-4">
+<div class="card ">
     <div class="card-body">
+
     <h2><%= link_to(course.title, course_path(course.id))%></h2>
+    
+    <%= image_tag Faker::LoremFlickr.image(size: "100x100", search_terms: ['computer science'])  %>
     <p><%= course.description.truncate_words(10)%></p>
     <p><%= course.max_students%></p>
     </div>
@@ -13,3 +16,5 @@
 
 </div>
 </div>
+
+
