@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_182556) do
     t.datetime "end_time", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "comment"
+    t.boolean "approved", default: false
     t.index ["course_id"], name: "index_bookings_on_course_id"
     t.index ["facility_id"], name: "index_bookings_on_facility_id"
   end

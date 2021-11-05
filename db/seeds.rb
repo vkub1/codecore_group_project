@@ -94,9 +94,12 @@ courses = Course.all
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 15)
+        features: Faker::Lorem.words(number: 150),
+        user: users.sample
     )
-    if f.valid?
+    if f.valid? 
+        user_sample = users.shuffle.slice(0, 10)
+        #byebug
         Tagging.create(
             tag: t,
             facility: f
@@ -105,7 +108,7 @@ courses = Course.all
             course: courses.sample,
             facility: f,
             start_time: Date.yesterday,
-            end_time: Date.tomorrow
+            end_time: Date.tomorrow 
         )
     end
 end

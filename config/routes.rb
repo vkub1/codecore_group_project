@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     
   end
   resources :courses do
-    resources :bookings, only: [:index, :create, :update, :destroy]
+    resources :bookings, only: [:index, :create, :update, :destroy , :new]
   end
 
   resources :facilities
