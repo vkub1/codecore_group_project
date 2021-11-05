@@ -26,7 +26,7 @@ super_user = User.create(
 hung = User.create(first_name: "Hung",
     last_name: "Nguyen",
     email: "hung@123.com",
-    password: 123,
+    password: PASSWORD,
     is_admin: false)
 
 20.times do 

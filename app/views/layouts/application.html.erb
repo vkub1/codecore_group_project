@@ -11,21 +11,36 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
   </head>
   <body>
-
-  <% if user_signed_in? %>
-          Hello <%= current_user.full_name %>
-          <%= link_to "Logout", session_path, method: :delete, data: {confirm: "Are you sure you want to logout?"} %>
-          |
-          <%if current_user.is_admin%>
-            <%= link_to 'admin', admin_path %>
+    <header>
+      <nav class="navbar">
+        <a class="navbar-brand" href="<%= root_path%>"> <%= image_tag "logo.png" %> </a>
+        
+        <ul class="nav ml-auto">
+        
+          <% if user_signed_in? %>
+              <li class="nav-item nav-link"> Hello <%= current_user.full_name %></li>
+              <li class="nav-item"><%= link_to "Logout", session_path, method: :delete, data: {confirm: "Are you sure you want to logout?"}, class:"nav-link"%></li>
+              <li class="nav-item"> <%= link_to "Notifications", user_notifications_path(current_user), class:"nav-link" %></li>
+              <% if current_user.enrollments.length > 0 %>
+                <li class="nav-item"><%=  link_to  'Enrolled Classes', user_enrollments_path(current_user), class:"nav-link"  %></li>
+              <% end %>
+              <% if current_user.enrollments.where('is_teacher = true').count > 0%>
+                <li class="nav-item"><%= link_to 'Booked Facilities', booked_facilities_path, class:"nav-link" %></li>
+              <% end %>
+              <%if current_user.is_admin%>
+                <li class="nav-item"><%= link_to 'Admin Panel', admin_path, class:"nav-link" %></li>
+              <% end %>
+          <% else %>
+            <li class="nav-item"><%=  link_to  'Log in', new_session_path, class:"nav-link"  %></li>
+              
+            <li class="nav-item"><%=  link_to  'Sign Up', new_user_path, class:"nav-link" %></li>
           <% end %>
-
-            <% else %>
-            <%=  link_to  'Log in', new_session_path  %>
-              |
-            <%=  link_to  'Sign Up', new_user_path  %>
-            <% end %>
-          
+          <li class="nav-item"><%=  link_to  'Courses', courses_path, class:"nav-link" %></li>
+          <li class="nav-item"><%=  link_to  'Facilities', facilities_path, class:"nav-link" %></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
 
    <% if flash[:alert]%>
@@ -33,5 +48,6 @@
    <%end%>
    <%= flash[:notice] %>
     <%= yield %>
+    </main>
   </body>
 </html>

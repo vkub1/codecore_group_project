@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   
   resource :session, only: [:new, :create, :destroy]
 
+  get('/booked_facilities', {to: "bookings#index", as: 'booked_facilities'})
+
 
 
 end
