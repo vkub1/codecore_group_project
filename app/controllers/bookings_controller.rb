@@ -5,8 +5,10 @@ class BookingsController < ApplicationController
     #before_action :authorize_user!
 
     def index
-        @bookings = Booking.order(created_at: :desc)
-        
+        #@bookings = Booking.order(created_at: :desc)
+         
+        @bookings = Booking.where(:course_id=>@course.id) 
+        #byebug
     end
 
     def new
@@ -14,13 +16,17 @@ class BookingsController < ApplicationController
     end
 
     def create
-        @course = Course.find params[:course_id]
-        @booking  = Booking.new(params.require(:review).permit(:rate,:body))
-        @booking.product = Product.find params[:product_id]  
-        @booking.user = current_user
+        @booking = Booking.new(booking_params)
+        @booking.course_id = @course.id
         @admin = User.find_by(email: "admin@user.com")
+         
+        if @booking.save
+            Notification.create(message: "#{current_user.first_name} has requested to book facility ##{@booking.facility_id} from #{@booking.start_time} to #{@booking.end_time}", accepted: false, sender_id: current_user.id, receiver_id: @admin.id, is_request: true, request_type: "booking", booking_id: @booking.id)
+            redirect_to course_bookings_path(@course.id), notice: 'Booking created!'
+        else
+            render :new
+        end
 
-        Notification.create(message: "#{@booking.user.first_name} has requested to book facility ##{@booking.facility_id} from #{@booking.start_time} to #{@booking.end_time}", accepted: false, sender_id: @booking.user.id, receiver_id: @admin.id, is_request: true, request_type: "booking", booking_id: @booking.id)
     end    
 
     def show
@@ -32,12 +38,21 @@ class BookingsController < ApplicationController
         if (params[:notif])
             @notification = Notification.find params[:nid]
             @notification.update(read: true)
-            Notification.create(message: "Your request to book facility ##{@booking.facility_id} has been denied", accepted: false, sender_id: @admin.id, receiver_id: @booking.user.id, is_request: false)
-            redirect_to user_notifications_path, notice: "Request denied"
+            Notification.create(message: "Your request to book facility ##{@booking.facility_id} has been denied", accepted: false, sender_id: @notification.receiver_id, receiver_id: @notification.sender_id, is_request: false)
+            redirect_to user_notifications_path(current_user), notice: "Request denied"
         else
-            Notification.create(message: "#{@booking.user.first_name} has cancelled their reservation for facility ##{@booking.facility_id}", accepted: false, sender_id: @booking.user.id, receiver_id: @admin.id, is_request: false)
+            Notification.create(message: "#{current_user.first_name} has cancelled their reservation for facility ##{@booking.facility_id}", accepted: false, sender_id: current_user.id, receiver_id: @admin.id, is_request: false)
             redirect_to facilities_path, alert: "Your booking is cancelled"
         end
+        #byebug
+        #@booking = Answer.find params[:id]
+       # if can?(:crud, @booking)
+            # @booking.destroy
+            #byebug
+            # redirect_to course_bookings_path(@course.id),  notice: 'Answer Deleted'
+      #  else
+       #     redirect_to root_path, alert: 'Not Authorized'
+      # end
     end    
 
     def edit
@@ -45,13 +60,18 @@ class BookingsController < ApplicationController
     end
     
     def update
-        @booking.update(approved: true)
-        @notification = Notification.find params[:nid]
-        @notification.update(read: true)
-        @admin = User.find_by(email: "admin@user.com")
+        if (params[:notif])
+            @booking.update(approved: true)
+            @notification = Notification.find params[:nid]
+            @notification.update(read: true)
 
-        Notification.create(message: "Your request to book facility ##{@booking.facility_id} has been approved", accepted: true, sender_id: @admin.id, receiver_id: @booking.user.id, is_request: false)
-        redirect_to user_notifications_path, notice: "Request approved"
+            Notification.create(message: "Your request to book facility ##{@booking.facility_id} has been approved", accepted: true, sender_id: @notification.receiver_id, receiver_id: @notification.sender_id, is_request: false)
+            redirect_to user_notifications_path(current_user), notice: "Request approved"     
+        elsif @booking.update(booking_params)
+            redirect_to course_bookings_path(@course.id), notice: 'Booking created!'
+        else
+            render :edit
+        end
     end
 
 
@@ -67,7 +87,9 @@ class BookingsController < ApplicationController
     end
     
     def booking_params
-        params.require(:booking).permit(:facility_id, :course_id, :start_date , :start_time , :end_date , :end_time, :comment )
+
+        #byebug
+        params.require(:booking).permit(:facility_id, :comment, :start_time, :end_time) 
     end
 
     def authorize_user!

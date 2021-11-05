@@ -1,0 +1,31 @@
+<h1>Edit Booking for <%=@course.title   %></h1> 
+
+<div class="container">
+
+<%= form_with(model: [@course, @booking] ) do |form| %>
+    
+             <div class="m-4">
+                <%= label_tag :Start_Time %>
+                <%= form.date_field :start_time, :class=>'form-control' %>
+            </div>
+           
+            <div class="m-4">
+                <%= label_tag :End_time %>
+                <%= form.date_field :end_time , :class=>'form-control' %>
+            </div>
+
+            <div class="m-4">
+                <%= label_tag :Facility %>
+                <%= form.text_field :facility_id, :class=>'form-control' %>
+            </div>
+
+            <div class="m-4">
+                <%= label_tag :comment %>
+                <%= form.text_area :comment , :class=>'form-control' %>
+            </div>           
+            <div class="m-4">
+            <%= form.submit%>
+            </div>
+
+<% end %>
+</div>

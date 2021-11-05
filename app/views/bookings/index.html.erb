@@ -19,9 +19,9 @@
 
         <%= link_to("New", new_course_booking_path(booking.course_id)) %>
      
-        <%= link_to("Edit", course_bookings_path(booking.id)) %>
+        <%= link_to("Edit", edit_course_booking_path(booking.course_id,booking.id)) %>
         <% # if can?(:crud, booking)%>
-             <%= link_to("Cancel", course_bookings_path(booking.id) , method: :delete, data: {confirm: "Are you sure"})  %>
+             <%= link_to("Cancel", course_booking_path(booking.course_id,booking.id) , method: :delete, data: {confirm: "Are you sure"})  %>
  
         <% # end %>
     </div>

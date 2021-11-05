@@ -17,4 +17,11 @@ class Notification < ApplicationRecord
         end
         @user
     end
+
+    def booking
+        if self.booking_id
+            @booking = Booking.find self.booking_id
+        end
+        @booking
+    end
 end

@@ -15,10 +15,8 @@
       <div class="swiper-wrapper">
         <!-- Slides -->
         <% @facilities.each do |facility|%>
-        <div class="swiper-slide img-container">
-        
-            <%= link_to(facility.full_address, facility_path(facility.id)) %>
-            <%= image_tag("/images/facility-background.jpeg", :alt => "rss feed") %>
+        <div class="swiper-slide" style="background-image:url(/images/facility-background.jpeg)">
+            <%= link_to facility.full_address, facility_path(facility.id)  %>
         </div>
         <% end %>
         ...
