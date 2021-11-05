@@ -23,6 +23,14 @@ super_user = User.create(
     is_admin: true
 )
 
+hung = User.create(
+    first_name: "Hung",
+    last_name: "Nguyen",
+    email: "hung@123.com",
+    password: PASSWORD,
+    is_admin: false
+)
+
 20.times do 
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
@@ -86,9 +94,11 @@ courses = Course.all
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 15)
+        features: Faker::Lorem.words(number: 150)
     )
-    if f.valid?
+    if f.valid? 
+        user_sample = users.shuffle.slice(0, 10)
+        #byebug
         Tagging.create(
             tag: t,
             facility: f
@@ -97,7 +107,13 @@ courses = Course.all
             course: courses.sample,
             facility: f,
             start_time: Date.yesterday,
-            end_time: Date.tomorrow
+            end_time: Date.tomorrow 
         )
     end
 end
+
+facilities = Facility.all
+
+puts "generated #{facilities.count} facilities"
+puts "generated #{users.count} users"
+puts "generated #{courses.count} courses"
