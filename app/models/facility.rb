@@ -4,7 +4,6 @@ class Facility < ApplicationRecord
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
 
-    belongs_to :user
     
     validates :full_address, presence: { message: "an address must be provided" }, uniqueness: true
     validates :features, presence: true

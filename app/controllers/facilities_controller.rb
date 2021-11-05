@@ -17,6 +17,8 @@ class FacilitiesController < ApplicationController
     if current_user&.is_admin?
       if @facility.save
         redirect_to facility_path(@facility)
+      else
+        redirect_to root_path, alert: "Only an Admin can perform this action!"
       end
     else
       redirect_to root_path, alert: "Only an Admin can perform this action!"
@@ -30,20 +32,29 @@ class FacilitiesController < ApplicationController
 
   def update
     @facility = Facility.find params[:id]
-    if @facility.update(facility_params)
-      redirect_to facility_path(@facility.id)
+    if current_user&.is_admin?
+      if @facility.update(params.require(:facility).permit(:full_address, :features))
+        redirect_to facility_path(@facility.id)
+      else
+        redirect_to root_path, alert: "Only an Admin can perform this action!"
+      end
     else
-      render :edit
+      redirect_to root_path, alert: "Only an Admin can perform this action!"
     end
   end
 
   def destroy
     @facility = Facility.find params[:id]
-    if @facility.destroy
-      redirect_to facilities_path
+    if current_user&.is_admin?
+      if @facility.destroy
+        redirect_to facilities_path
+      else
+        redirect_to root_path, alert: "Only an Admin can perform this action!"
+      end
     else
-      redirect_to root_path, alert: 'Unable to delete'
+      redirect_to root_path, alert: "Only an Admin can perform this action!"
     end
+    
   end
 
   private 

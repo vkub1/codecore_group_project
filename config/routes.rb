@@ -12,12 +12,12 @@ Rails.application.routes.draw do
 
  
   resources :users, only: [:new, :create] do
-    resources :notifications, only: [:index, :destroy]
+    resources :notifications, only: [:index, :update]
     resources :enrollments, only: [:index, :create, :update, :destroy]
     
   end
   resources :courses do
-    resources :bookings, only: [:index, :create, :update, :destroy , :new]
+    resources :bookings, only: [:index, :create,:edit, :update, :destroy , :new]
   end
 
   resources :facilities
