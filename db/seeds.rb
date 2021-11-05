@@ -79,16 +79,18 @@ end
 
 courses = Course.all
 
-10.times do 
+10.times do
     t = Tag.create(
         name: Faker::Address.city,
         category: "Location"
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 15)
+        features: Faker::Lorem.words(number: 150)
     )
     if f.valid?
+        user_sample = users.shuffle.slice(0, 10)
+        #byebug
         Tagging.create(
             tag: t,
             facility: f
@@ -97,7 +99,11 @@ courses = Course.all
             course: courses.sample,
             facility: f,
             start_time: Date.yesterday,
-            end_time: Date.tomorrow
+            end_time: Date.tomorrow,
+            comment:  Faker::Hacker.say_something_smart,
+            user: user_sample[1..10].sample
         )
     end
 end
+puts Cowsay.say("Generated #{users.count} users", :koala)
+puts Cowsay.say("Generated #{Booking.count} booking", :koala)
