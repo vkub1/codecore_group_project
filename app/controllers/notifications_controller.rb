@@ -8,6 +8,6 @@ class NotificationsController < ApplicationController
   def update
     @notification = Notification.find params[:id]
     @notification.update(read: true)
-    render :index
+    redirect_to user_notifications_path
   end
 end

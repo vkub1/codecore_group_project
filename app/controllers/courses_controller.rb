@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
     before_action :authorize_user!, only: [:update, :destroy]
 
     def index
-        @courses=Course.all
+        @courses = Course.all
     end
     def show
         @enrollment = @course.enrollments.find_by(user: current_user)
@@ -17,7 +17,7 @@ class CoursesController < ApplicationController
         @course = Course.new(course_params)
         # @course.user = current_user
         if @course.save
-            Enrollment.create({user_id: current_user, course_id: @course, is_teacher: true, approved: true})
+            Enrollment.create(user_id: current_user.id, course_id: @course.id, is_teacher: true, approved: true)
            # flash[:notice] = "course created successfully!"
             redirect_to course_path(@course.id)
         else
