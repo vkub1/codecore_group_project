@@ -11,6 +11,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap"
 import './selectize';
+import "chartkick/chart.js"
 import './tag_filter';
 
 

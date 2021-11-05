@@ -1,8 +1,9 @@
-<div class="container-fluid">
+<div class="container">
   <h1>Notifications</h1>
 </div>
+<hr>
 <div class="container flex-column">
-  <% if (@notifications) %>
+  <% if @notifications.any? %>
     <% @notifications.each do |n| %>
         <% if n.read == false %>
           <div class="card mb-2">
@@ -37,5 +38,11 @@
           </div>
       <% end %>
     <% end %>
+  <% else %>
+    <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+      <%= image_tag "bell.png", size: "200x200" %>
+      <br>
+      <h1 class="text-center">No Notifications</h1>
+    </div>
   <% end %>
 </div>

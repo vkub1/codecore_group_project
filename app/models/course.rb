@@ -23,6 +23,6 @@ class Course < ApplicationRecord
     end
 
     def teacher
-        self.enrollments.find_by(is_teacher: true)
+        self.enrolled_users.where('is_teacher = true')[0]
     end
 end

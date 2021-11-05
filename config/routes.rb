@@ -26,6 +26,11 @@ Rails.application.routes.draw do
 
   get('/booked_facilities', {to: "bookings#index", as: 'booked_facilities'})
 
+
   get('/filtered_facilities', {to: "facilities#filter", as: 'filtered_facilities'})
+
+  get('/booked_calendar', {to: "bookings#calendar", as: 'booked_calendar'})
+
+
 
 end
