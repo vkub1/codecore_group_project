@@ -14,8 +14,9 @@
   <div class="swiper-wrapper">
     <!-- Slides -->
     <% @facilities.each do |facility|%>
-    <div class="swiper-slide" style="background-image:url('');">
-        <%= link_to(facility.full_address, facility_path(facility.id)) %>
+    <div class="swiper-slide">
+    <%= image_tag("/images/facility-background.jpeg", :alt => "rss feed") %>
+    <%= link_to(facility.full_address, facility_path(facility.id)) %>
     </div>
     <% end %>
     ...
@@ -30,8 +31,6 @@
   <!-- If we need scrollbar -->
   <div class="swiper-scrollbar"></div>
 </div>
-
-
 
 <script>
     const swiper = new Swiper('.swiper', {
@@ -56,7 +55,6 @@
     },
     });
 </script>
-
 
 <div>
     <%# @facilities.each do |facility| %>
