@@ -1,2 +1,36 @@
-<h1>Booking</h1>
-<%= render "shared/booking_form"%>
+<h1>Booking for <%=@course.title   %></h1> 
+
+<div class="container">
+
+<%= form_with(model: [@course, @booking] ) do |form| %>
+    
+           <div class="m-4">                
+                 <%=  collection_select(:booking,  :facility_id, Facility.order(full_address: :asc), :id, :full_address, 
+                    {:prompt => 'Please select the Facility'} , :class=>'form-control' ,  autofocus: true)
+                  %>                 
+            </div>
+
+             <div class="m-4">
+                <%= label_tag :Start_Time %>
+                <%= form.date_field :start_time, :class=>'form-control' %>
+            </div>
+           
+            <div class="m-4">
+                <%= label_tag :End_time %>
+                <%= form.date_field :end_time , :class=>'form-control' %>
+            </div>
+
+            
+
+            <div class="m-4">
+                <%= label_tag :comment %>
+                <%= form.text_area :comment , :class=>'form-control' %>
+            </div>           
+            <div class="m-4">
+            <%= form.submit%>
+            </div>
+
+<% end %>
+</div>
+
+<%= link_to("Goto Book List", course_bookings_path(@course.id)) %>

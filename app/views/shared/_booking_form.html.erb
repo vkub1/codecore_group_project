@@ -2,7 +2,7 @@
 <% form_with(model: [@course, @booking] ) do |form| %>
             <div class="m-4">
             <%= label_tag :Course%>
-            <%# form.text_field :course_id, :class=>'form-control', :required=>"true"%>
+            <%= form.text_field :course_id, :class=>'form-control', :required=>"true"%>
             </div>
             <div class="m-4">
             <%= label_tag :Facilitie%>
