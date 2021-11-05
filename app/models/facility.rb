@@ -5,8 +5,9 @@ class Facility < ApplicationRecord
     has_many :tags, through: :taggings
 
     
-    validates :full_address, presence: { message: "an address must be provided" }, uniqueness: true
+    validates :full_address, presence: { message: "must be provided" }, uniqueness: true
     validates :features, presence: true
+    
     def tag_names
         self.tags.map(&:name).join(", ")
     end
