@@ -17,4 +17,11 @@ class Facility < ApplicationRecord
             Tag.find_or_initialize_by(name: tag_name)
         end
     end
+
+    def tag_categories=(rhs)
+        self.tags = rhs.strip.split(/\s*,\s*/).map do |tag_category|
+            Tag.find_or_initialize_by(category: tag_category)
+        end
+    end
+
 end
