@@ -5,8 +5,12 @@ class BookingsController < ApplicationController
     #before_action :authorize_user!
 
     def index
-        @bookings = Booking.order(created_at: :desc)
-         
+        enrollments = current_user.enrollments.where('is_teacher = true')
+        @courses = []
+        enrollments.each do |enrollment|
+            @courses.push(Course.find enrollment.course_id)
+        end
+        @courses
     end
 
     def new

@@ -12,7 +12,7 @@ class FacilitiesController < ApplicationController
   end
 
   def create
-    @facility = Facility.new(params.require(:facility).permit(:full_address, :features))
+    @facility = Facility.new(facility_params)
     @facility.user = current_user
     if current_user&.is_admin?
       if @facility.save
@@ -30,7 +30,7 @@ class FacilitiesController < ApplicationController
 
   def update
     @facility = Facility.find params[:id]
-    if @facility.update(params.require(:facility).permit(:full_address, :features))
+    if @facility.update(facility_params)
       redirect_to facility_path(@facility.id)
     else
       render :edit
@@ -44,5 +44,11 @@ class FacilitiesController < ApplicationController
     else
       redirect_to root_path, alert: 'Unable to delete'
     end
+  end
+
+  private 
+
+  def facility_params
+    params.require(:facility).permit(:full_address, :features, tag_ids:[])
   end
 end

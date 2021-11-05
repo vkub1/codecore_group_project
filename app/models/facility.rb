@@ -8,4 +8,14 @@ class Facility < ApplicationRecord
     
     validates :full_address, presence: { message: "an address must be provided" }, uniqueness: true
     validates :features, presence: true
+    def tag_names
+        self.tags.map(&:name).join(", ")
+    end
+
+    
+    def tag_names=(rhs)
+        self.tags = rhs.strip.split(/\s*,\s*/).map do |tag_name|
+            Tag.find_or_initialize_by(name: tag_name)
+        end
+    end
 end

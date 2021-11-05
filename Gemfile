@@ -22,7 +22,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'cowsay', '~> 0.3.0'
 gem 'cancancan', '~> 1.15'
 gem 'bootstrap', '~> 4.6.0'
-
+gem 'selectize-rails'
 gem 'faker'
 gem 'jquery-rails'
 # Use Active Storage variant
