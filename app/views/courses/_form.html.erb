@@ -5,29 +5,25 @@
     <% end %>
   </ul>
 <% end %>
-<div class="container">
-
+<div class="container-fluid">
 <%= form_with model:@course do |form|%>
- <div class="m-4">
+    <div class="mb-3">
+      <%= form.label :title%>
+      <%= form.text_field :title , :class=>'form-control' %>
+    </div>
 
-    <%= form.label :title%>
-    
-   
-    <%= form.text_field :title , :class=>'form-control' %>
+     <div class="mb-3">
+      <%= form.label :description%>
+      <%= form.text_area :description , :class=>'form-control' %>
     </div>
-     <div class="m-4">
-    <%= form.label :description%>
-    
-    <%= form.text_area :description , :class=>'form-control' %>
-    </div>
-    
-    <div class="m-4">
-    <%= form.label :max_students%>
-    <%= form.number_field :max_students, in: 1.0..30.0, step: 1, :class=>'form-control'  %>
+  
+    <div class="mb-3">
+      <%= form.label :max_students%>
+      <%= form.number_field :max_students, in: 1.0..30.0, step: 1, :class=>'form-control'  %>
     </div>
     
-    <div class="m-4">
-    <%= form.submit nil, class:"btn btn-outline-primary" %>
+    <div class="mb-3">
+      <%= form.submit class:"btn btn-outline-primary" %>
     </div>
 <% end %>
 </div>
