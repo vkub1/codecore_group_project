@@ -11,9 +11,16 @@
         You are teaching this course
         <% %>
       <% else %>
-       <%= image_tag "student-svgrepo-com.svg", size:"100x100" %>
-        <hr>
-        <%= enrollment.approved ? "You are a student of this class":"Your enrollment is pending"%>
+        <% if enrollment.approved %>
+          <%= image_tag "student-svgrepo-com.svg", size:"100x100" %>
+          <hr>
+          <span class="enrolled">You are a student of this class</span>
+        <% else %>
+          <%= image_tag "pending.jpeg", size: "120x100", class: "pendingImg" %>
+          <hr>
+          <span class="pending">Your enrollment is pending </span>
+          <% end%>
+        <%#= enrollment.approved ? "You are a student of this class":"Your enrollment is pending"%>
       <% end %>
     </div>
   </div>
