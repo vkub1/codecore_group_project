@@ -1,39 +1,40 @@
-<%# placeholder links %>
-<div>
-    <%= link_to 'All Facilities', facilities_index_path %> |
-    <%= link_to 'Add Facility', new_facility_path %> |
-    <%= link_to 'Book'%>
+<div class="container">
+    <h1>Edit Facility</h1>
 </div>
-<br>
+
+<% if @facility.errors.any? %>
+    <% @facility.errors.full_messages.each do |error| %>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Ooops! </strong><%= error %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    <% end %>
+<% end%>
+
 <div class="">
     <%= form_with model: @facility do |form| %>
-    <div>
-        <%= form.label :full_address %>
-        <br>
-        <%= form.text_field :full_address %>
-    </div>
-    <div>
-        <%= form.label :features %>
-        <br>
-        <%= form.text_field :features %>
-    </div>
-    <div>
-        <%= form.label :description %>
-        <br>
-        <%= form.text_area :description, cols: 50, rows: 5 %>
-        <div class="tag-wrapper">
-        <br>
-        <%= form.collection_check_boxes :tag_ids, Tag.order(name: :ASC), :id, :name do |t| %>
-            <div class="tag-wrapper">
-                <%= t.check_box %>
-                <%= t.text %>
-            </div>
-        <% end %>
-        <%# form.label :tag_names %>
-        <br>
-        <%# form.text_field :tag_names %>
+        <div>
+            <%= form.label :full_address %>
+            <br>
+            <%= form.text_field :full_address, class:"form-control" %>
         </div>
-    </div>
-    <%= form.submit %>
+        <div>
+            <%= form.label :features %>
+            <br>
+            <%= form.text_field :features, class:"form-control" %>
+        </div>
+        <br>
+        <div class="tag-wrapper">
+            <%= form.collection_check_boxes :tag_ids, Tag.order(name: :ASC), :id, :name do |t| %>
+            <%= t.check_box %>
+            <%= t.text %>
+            <% end %>
+        </div>
+        <br>
+        <br>
+        <%= form.submit class: "btn btn-outline-primary"%>
     <% end %>
+    </div>
 </div>
