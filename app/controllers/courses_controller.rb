@@ -8,6 +8,7 @@ class CoursesController < ApplicationController
     end
     def show
         @enrollement = @course.enrollments.find_by(user: current_user)
+
     end
     def new
         @course=Course.new

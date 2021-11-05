@@ -11,14 +11,17 @@ class FacilitiesController < ApplicationController
     @facility = Facility.new
   end
 
-  # action is not complete but for now it's MVP
   def create
     @facility = Facility.new(params.require(:facility).permit(:full_address, :features))
-    if @facility.save
-      redirect_to facility_path(@facility)
+    @facility.user = current_user
+    if current_user&.is_admin?
+      if @facility.save
+        redirect_to facility_path(@facility)
+      end
     else
-
+      redirect_to root_path, alert: "Only an Admin can perform this action!"
     end
+    
   end
 
   def edit
