@@ -3,67 +3,60 @@
 <%# place holder links %>
 </div>
 
-<div class="container">
-    <% if current_user&.is_admin? %>
-        <%= link_to 'Edit', edit_facility_path%>
-        <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"} %>
-    <% end %>
-</div>
-
+<hr>
+<section class="gallery">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col">
+                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+            </div>
+            <div class="col">
+                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+            </div>
+            <div class="col">
+                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+            </div>
+            <div class="col">
+                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+            </div>
+            <div class="col">
+                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+            </div>
+        </div>
+    </div>
+</section>
 <hr>
 
-<div class="container">
-    <!-- Swiper -->
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(/images/image<%= rand(1..7) %>.jpg)"></div>
-      </div>
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    </div>
-
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-    <!-- Initialize Swiper -->
-    <script>
-      const swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    }
-      });
-    </script>
 </div>
 <br>
 <br>
-
-
-
-
-
+<div class="container">
+    <% if current_user&.is_admin? %>
+        <%= link_to 'Edit', edit_facility_path, class: "btn btn-outline-info"%>
+        <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"}, class: "btn btn-outline-danger" %>
+    <% end %>
+</div>
+<br>
+<br>
 <br>
 <div>
     <br>
     <div class="container">
-        <p><strong>Features:</strong> <%= @facility.features %></p>
+        <p><strong>Facility Features:</strong> <%= @facility.features %></p>
     </div>
     <div class="container tags">
     <% unless @facility.tags.empty? %>
-        <p> Tags:
+        <small><p> Tags:</small>
             <% @facility.tags.each do |tag| %>
-                <span class="badge badge-pill badge-primary"><%= tag.name %></span>
+                <%= link_to(
+                    tag.name, facilities_path(tag: tag.name), class: "badge badge-pill badge-primary"
+                )%>
             <% end %>
         </p>
     <% end %>
