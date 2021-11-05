@@ -1,14 +1,16 @@
 class BookingsController < ApplicationController
 
     before_action :find_booking, only: [:edit, :update, :show, :destroy]
-    before_action :find_course
+    before_action :find_course, except: [:index]  
     #before_action :authorize_user!
 
     def index
-        #@bookings = Booking.order(created_at: :desc)
-         
-        @bookings = Booking.where(:course_id=>@course.id) 
-        #byebug
+        teacher_enrollments = current_user.enrollments.where('is_teacher = true')
+        @courses = []
+        teacher_enrollments.each do |enrollment|
+            @courses.push(Course.find(enrollment.course_id))
+        end
+
     end
 
     def new
@@ -64,9 +66,8 @@ class BookingsController < ApplicationController
             @booking.update(approved: true)
             @notification = Notification.find params[:nid]
             @notification.update(read: true)
-
             Notification.create(message: "Your request to book facility ##{@booking.facility_id} has been approved", accepted: true, sender_id: @notification.receiver_id, receiver_id: @notification.sender_id, is_request: false)
-            redirect_to user_notifications_path(current_user), notice: "Request approved"     
+            redirect_to user_notifications_path(@notification.receiver), notice: "You have approved #{User.find(@notification.sender).full_name} request to book a facility"     
         elsif @booking.update(booking_params)
             redirect_to course_bookings_path(@course.id), notice: 'Booking created!'
         else

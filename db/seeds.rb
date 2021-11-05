@@ -52,36 +52,36 @@ users = User.all
     )
 end
 
-10.times do
-    5.times do 
-        t = Tag.create(
-            name: Faker::Educator.subject,
-            category: "Interest"
+user_sample = users.shuffle.slice(0, 10)
+
+5.times do 
+    t = Tag.create(
+        name: Faker::Educator.subject,
+        category: "Interest"
+    )
+    c = Course.create(
+        title: Faker::Educator.course_name,
+        description: Faker::Lorem.sentence(word_count: 150),
+    )
+    if c.valid?
+        Enrollment.create(
+        course: c,
+        user: User.first,
+        is_teacher: true
         )
-        c = Course.create(
-            title: Faker::Educator.course_name,
-            description: Faker::Lorem.words(number: 150),
+        Tagging.create(
+            tag: t,
+            course: c
         )
-        if c.valid?
-            user_sample = users.shuffle.slice(0, 10)
+        5.times do
             Enrollment.create(
-            course: c,
-            user: user_sample[0],
-            is_teacher: true
+                course: c,
+                user: user_sample[1..10].sample
             )
-            Tagging.create(
-                tag: t,
-                course: c
-            )
-            5.times do
-                Enrollment.create(
-                    course: c,
-                    user: user_sample[1..10].sample
-                )
-            end
         end
     end
 end
+
 
 courses = Course.all
 
@@ -92,7 +92,7 @@ courses = Course.all
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 150),
+        features: Faker::Lorem.sentence(word_count: 150),
     )
     if f.valid? 
         user_sample = users.shuffle.slice(0, 10)
@@ -105,7 +105,7 @@ courses = Course.all
             course: courses.sample,
             facility: f,
             start_time: Date.yesterday,
-            end_time: Date.tomorrow 
+            end_time: Date.yesterday 
         )
     end
 end

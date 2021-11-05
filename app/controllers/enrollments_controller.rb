@@ -30,7 +30,7 @@ class EnrollmentsController < ApplicationController
     @notification = Notification.find params[:nid]
     @notification.update(read: true)
     Notification.create(message: "Your request to enroll in #{@course.title} has been approved", accepted: true, sender_id: @teacher.user_id, receiver_id: @enrollment.user.id, is_request: false)
-    redirect_to user_notifications_path, notice: "Request approved"
+    redirect_to user_notifications_path(@notification.receiver), notice: "You have approved #{User.find(@notification.sender_id).full_name}'s request to enroll in the #{@course.title} course"
     # redirect_to courses_path
   end
 

@@ -1,0 +1,30 @@
+<h1>Booking Index Page    </h1>
+
+<% @bookings.each do |booking|%>
+    <div>
+        <h3>
+           <%= booking.facility.full_address %> 
+        </h3>
+
+        <h5>
+           <%= booking.course.title %> 
+        </h5>
+        Start_Time: <%=  booking.start_time %><br> 
+        End_Time  : <%=  booking.end_time %><br>
+        comment: <%=  booking.comment %><br>
+
+        <!-- <h6>booked by <%# booking.user.first_name  %>  <%# booking.user.last_name  %> <%# time_ago_in_words(booking.created_at) %> ago <br> -->
+
+
+
+        <%= link_to("New", new_course_booking_path(booking.course_id)) %>
+     
+        <%= link_to("Edit", edit_course_booking_path(booking.course_id,booking.id)) %>
+        <% # if can?(:crud, booking)%>
+             <%= link_to("Cancel", course_booking_path(booking.course_id,booking.id) , method: :delete, data: {confirm: "Are you sure"})  %>
+ 
+        <% # end %>
+    </div>
+
+
+<% end %>

@@ -1,3 +1,10 @@
+<% if @booking.errors.any? %>
+  <ul>
+    <% @booking.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 <h1>Booking for <%=@course.title   %></h1> 
 
 <div class="container">
