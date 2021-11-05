@@ -1,10 +1,11 @@
 class CoursesController < ApplicationController
     before_action :find_course, only: [:edit, :update, :show, :destroy]
-    before_action :authenticate_user!, except: [:index, :show]
-    before_action :authorize_user!, only: [:update, :destroy]
+    #before_action :authenticate_user!, except: [:index, :show]
+    #before_action :authorize_user!, only: [:update, :destroy]
 
     def index
         @courses=Course.all
+        #byebug
     end
     def show
         @enrollement = @course.enrollments.find_by(user: current_user)
@@ -49,7 +50,7 @@ class CoursesController < ApplicationController
     def course_params
         params.require(:course).permit(:title,:description,:max_students)
     end
-    def authorize_user!
-        redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @course)
-    end
+    # def authorize_user!
+    #     redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @course)
+    # end
 end

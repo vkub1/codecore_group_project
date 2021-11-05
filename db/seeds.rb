@@ -57,6 +57,7 @@ end
             description: Faker::Lorem.words(number: 150),
         )
         if c.valid?
+
             user_sample = users.shuffle.slice(0, 10)
             Enrollment.create(
             course: c,
@@ -74,10 +75,13 @@ end
                 )
             end
         end
+        
+        puts c.errors.full_messages
     end
 end
 
 courses = Course.all
+
 
 10.times do 
     t = Tag.create(
@@ -86,7 +90,7 @@ courses = Course.all
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 15)
+        features: Faker::Lorem.words(number: 150)
     )
     if f.valid?
         Tagging.create(
@@ -100,4 +104,6 @@ courses = Course.all
             end_time: Date.tomorrow
         )
     end
+
 end
+puts courses.count
