@@ -10,7 +10,7 @@ Vladimir Kubliy, ROLES: Tags + Database + Project Manager + Git Master
 
 To get started
 ```
-git clone https://github.com/vkub1/codecore_group_project
+git clone git 
 bundle 
 rails db:create
 rails db:migrate
