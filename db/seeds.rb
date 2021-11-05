@@ -86,18 +86,24 @@ courses = Course.all
     )
     f = Facility.create(
         full_address: Faker::Address.full_address,
-        features: Faker::Lorem.words(number: 15)
+        features: Faker::Lorem.words(number: 150)
     )
-    if f.valid?
+    if f.valid? 
+        user_sample = users.shuffle.slice(0, 10)
+        #byebug
         Tagging.create(
             tag: t,
             facility: f
         )
-        Booking.create(
+        b = Booking.new(
             course: courses.sample,
             facility: f,
             start_time: Date.yesterday,
-            end_time: Date.tomorrow
+            end_time: Date.tomorrow 
         )
+        b.valid 
+        puts b.errors.full_messages
     end
 end
+puts Cowsay.say("Generated #{users.count} users", :koala)
+puts Cowsay.say("Generated #{Booking.count} booking", :koala)
