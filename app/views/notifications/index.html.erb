@@ -6,8 +6,6 @@
         <%= button_to "X", user_notification_path(n.receiver_id, n.id), method: :patch %>
         <div>
           <h3><%= n.message %></h3>
-          <small>Sent by <%= n.sender.first_name %></small>
-          <small>Received by <%= n.receiver.first_name %></small>
           <% if (n.is_request && n.request_type == 'enrollment') %>
             <%= link_to "Approve", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}", method: :patch %>
             <%= link_to "Deny", "/users/#{n.sender_id}/enrollments/#{n.enrollment_id}?nid=#{n.id}&notif=true", method: :delete %>

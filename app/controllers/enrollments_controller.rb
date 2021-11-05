@@ -22,18 +22,19 @@ class EnrollmentsController < ApplicationController
 
   def update
     @enrollment = Enrollment.find params[:id]
-    @teacher = Enrollment.where("is_teacher = ? AND course_id = ?", true, @course.id)[0]
     @course = Course.find @enrollment.course_id
-    @notification = params[:nid]
+    @teacher = Enrollment.where("is_teacher = ? AND course_id = ?", true, @course.id)[0]
+    @notification = Notification.find params[:nid]
     @notification.update(read: true)
     Notification.create(message: "Your request to enroll in #{@course.title} has been approved", accepted: true, sender_id: @teacher.user_id, receiver_id: @enrollment.user.id, is_request: false)
+    redirect_to user_notifications_path, notice: "Request approved"
   end
 
   def destroy
     @enrollment = Enrollment.find params[:id]
     @enrollment.destroy
-    @teacher = Enrollment.where("is_teacher = ? AND course_id = ?", true, @enrollment.course.id)[0]
     @course = Course.find @enrollment.course_id
+    @teacher = Enrollment.where("is_teacher = ? AND course_id = ?", true, @course.id)[0]
     if (params[:notif])
       @notification = Notification.find params[:nid]
       @notification.update(read: true)
