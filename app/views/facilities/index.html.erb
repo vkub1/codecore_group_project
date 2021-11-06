@@ -6,7 +6,6 @@
         <%= link_to 'Add Facility', new_facility_path, class: "btn btn-outline-info" %>
 </div>
 <br>
-<div class="container" style="justify-content: flex-start">
 <% if @taggings.present? %>
     <small>Select a tag to filter:
     </small>
@@ -17,6 +16,8 @@
       )%>
     <% end %>
 <% end%>
+<div class="container" style="justify-content: flex-start">
+
 </div>
 <hr>
 
