@@ -54,7 +54,7 @@ end
 
 user_sample = users.shuffle.slice(0, 10)
 
-5.times do 
+10.times do 
     t = Tag.create(
         name: Faker::Educator.subject,
         category: "Interest"
@@ -62,6 +62,7 @@ user_sample = users.shuffle.slice(0, 10)
     c = Course.create(
         title: Faker::Educator.course_name,
         description: Faker::Lorem.sentence(word_count: 150),
+        max_students: 20
     )
     if c.valid?
         Enrollment.create(
