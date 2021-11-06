@@ -1,6 +1,7 @@
 <div class="container">
     <h1>Admin Panel</h1>
 </div>
+<hr>
 <div class="container">
     <div class="card">
         <div class="card-body">
@@ -79,7 +80,7 @@
                     <% if facility.bookings.any?%>
                     <ul>
                         <p><% facility.bookings.each do |booking| %></p>
-                            <li><%= "#{booking.course.title} booked_from #{booking.start_time.strftime('%Y-%m-%d')} to #{booking.end_time.strftime('%Y-%m-%d')}"%></li>
+                            <li><%= "#{booking.course.title} booked from #{booking.start_time.strftime('%Y-%m-%d')} to #{booking.end_time.strftime('%Y-%m-%d')}"%></li>
                         <% end %>
                         </ul>
                     <% else %>

@@ -14,7 +14,7 @@
 <div class="container">
     <div class="card">
         <div class="card-body">
-            <%= image_tag "course_image_1.jpg", size: "500x500", class: "card-image-top img-fluid w-100 mb-3 mx-auto d-block" %>
+            <img src="/images/course/course_<%= rand(1..14)%>.jpg" class="card-image-top img-fluid w-100 mb-3 mx-auto d-block" alt="#" >
             <p class="card-text"><strong>Course Description: </strong><%= @course.description%></p>
             <p>Class Size: <%= @course.max_students%></p>
             <% teacher = @course.enrolled_users.where('is_teacher = true') %>
@@ -22,13 +22,19 @@
                 <% if current_user.id != teacher[0].id %>
                     <% if @enrollment.present? && @enrollment.approved  %>
                         You are currently enrolled in this class
-                        <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
+                        <div class="mt-3">
+                            <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete, class: "btn btn-outline-danger" %>
+                        </div>
                     <% elsif @enrollment.present? && !@enrollment.approved %>
                         You enrollment in this class is pending teacher approval
-                        <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
+                        <div class="mt-3">
+                            <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete, class: "btn btn-outline-danger" %>
+                        </div>
                     <% else %>
                         You are not enrolled in this class
-                        <%= link_to("Enroll Now", "/users/current_user/enrollments?course_id=#{@course.id}", method: :post)%>
+                        <div class="mt-3">
+                            <%= link_to("Enroll Now", "/users/current_user/enrollments?course_id=#{@course.id}", method: :post, class: "btn btn-outline-primary")%>
+                        </div>
                     <% end %>
                     <h2 class="my-3">Teacher: <%= teacher[0].full_name%> </h2>
                 <% else %>

@@ -2,10 +2,12 @@
     <h1>All Facilities</h1>
 </div>
 
-<div class="container">
-        <%= link_to 'Add Facility', new_facility_path, class: "btn btn-outline-info" %>
-</div>
-<br>
+<% if current_user&.is_admin?%>
+    <div class="container">
+            <%= link_to 'Add Facility', new_facility_path, class: "btn btn-outline-info" %>
+    </div>
+    <br>
+<% end %>
 <% if @taggings.present? %>
     <small>Select a tag to filter:
     </small>
