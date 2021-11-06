@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'facilities/index'
   get 'facilities/show'
+  get 'bookings/thanks', { to: 'bookings#thanks', as: 'thanks' }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   get('/', {to: 'welcome#index', as: 'root'})
