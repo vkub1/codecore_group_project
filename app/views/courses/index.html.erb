@@ -1,13 +1,16 @@
+<h1 style="text-align: center;">Courses</h1>
+
+
 <% if @tag.present? %>
-    <h2>Showing Courses tagged by:
+    <h5>Showing Courses tagged by:
         <span class="badge badge-pill badge-primary"><%= @tag.name %></span>
-    </h2>
+    </h5>
     <%= link_to "See all courses", courses_path %>
 <% end%>
 
 <% if @taggings.present? %>
-    <h2>Filter Courses tagged by:
-    </h2>
+    <h5>Filter Courses tagged by:
+    </h5>
     <% @taggings.each do |tagging| %>
       <%= link_to(
         tagging.tag.name, courses_path(tag: tagging.tag.name),
@@ -15,13 +18,13 @@
       )%>
     <% end %>
 <% end%>
+<hr style="margin-bottom: 20px;">
 
 <div class="container flex-column">
-<h1>Courses</h1>
 <div class="row">
 <% @courses.each do |course|%>
     <div class="card col-xs-11 col-sm-11 col-md-5 col-lg-3 col-xlg-3 m-4">
-        <%= image_tag Faker::LoremFlickr.image(size: "100x100", search_terms: ['computer science']), class: "card-img-top" %>
+        <img src="/images/course/course_<%= rand(1..14)%>.jpg" alt="#", style="width:100%; height:30%; margin-top:15px;" >
         <div class="card-body">
             <h3 class="card-title"><%= link_to(course.title, course_path(course.id))%></h3>
             <p class="card-text"><%= course.description.truncate_words(20)%></p>
