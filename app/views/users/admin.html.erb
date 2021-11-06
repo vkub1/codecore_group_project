@@ -1,17 +1,34 @@
+<div class="row">
 
 <% @facilities.each do |facility| %>
    
-     
-    <div class="card" style="width: 18rem;">
+    <div class="col">
+    
+        <div class="card " style="width: 22rem" >
 
-    <h4><%= facility.full_address%> </h4>
-    <br><br>
-    <h5>bookings:</h5>
-    <ul>
-    <div class="card-body body">
-        <p><% facility.bookings.each do |booking| %></p>
-            <li> <%= "#{booking.course.title} booked_from #{booking.start_time} to #{booking.end_time}"%></li>
-        <% end %>
-    </ul>
+            <h4><%= facility.full_address%> </h4>
+            <br>
+            <div class="card-body">
+           
+                <h5>bookings:</h5>
+                 <% if facility.bookings.any?%>
+                   <ul>
+                    <p><% facility.bookings.each do |booking| %></p>
+                        <li> <%= "#{booking.course.title} booked_from #{booking.start_time} to #{booking.end_time}"%></li>
+                    <% end %>
+                    </ul>
+                <% else %>
+                    <ul>
+                        <p>This facility doesnot have any bookings.</p>
+                    </ul>
+                <% end %>
+               
+            
+            </div>
+        </div>
     <br>
+    </div>
 <% end %> 
+</div>
+
+

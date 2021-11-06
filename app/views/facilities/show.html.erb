@@ -1,48 +1,49 @@
 <div class="container">
 <h1><%= @facility.full_address %></h1>
-<%# place holder links %>
 </div>
+<div class="container" >
 
+</div>
 <hr>
 <section class="gallery">
     <div class="container-lg">
         <div class="row">
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
             <div class="col">
-                <img src="/images/image<%= rand(1..7) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
+                <img src="/images/image_<%= rand(1..6) %>.jpg" class="gallery-item" alt="gallery" style="height:200px">
             </div>
         </div>
     </div>
 </section>
 <hr>
-
 </div>
 <br>
 <br>
-<div class="container">
-    <% if current_user&.is_admin? %>
-        <%= link_to 'Edit', edit_facility_path, class: "btn btn-outline-info"%>
-        <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"}, class: "btn btn-outline-danger" %>
-    <% end %>
+<div class="container" style="justify-content: flex-end">
+    <div>
+        <% if current_user&.is_admin? %>
+            <%= link_to 'Edit', edit_facility_path, class: "btn btn-outline-info"%>
+            <%= link_to 'Delete', facility_path, method: :delete, data:{confirm:"Are you sure you want to delete?"}, class: "btn btn-outline-danger" %>
+        <% end %>
+    </div>
 </div>
-<br>
 <br>
 <br>
 <div>
@@ -50,19 +51,13 @@
     <div class="container">
         <p><strong>Facility Features:</strong> <%= @facility.features %></p>
     </div>
-    <div class="container tags" id="">
+    <div class="container tags">
     <% unless @facility.tags.empty? %>
         <small><p> Tags:</small>
             <% @facility.tags.each do |tag| %>
                 <%= link_to(
-
-                    tag.name, facilities_path(tag: tag.name), class: "badge badge-pill badge-primary"
+                    tag.name, filtered_facilities_path(tag: tag.name), class: "badge badge-pill badge-primary"
                 )%>
-
-                    tag.name, facilities_path(tag: tag.name),
-                    class: 'badge badge-pill badge-primary'
-                    )%>
-
             <% end %>
         </p>
     <% end %>
