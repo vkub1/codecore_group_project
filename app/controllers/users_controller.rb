@@ -15,7 +15,9 @@ class UsersController < ApplicationController
     end
 
     def admin
-       @facilities = Facility.all
+        @users = User.all.order(id: :asc)
+        @courses = Course.all.order(id: :asc)
+        @facilities = Facility.all
         
     end   
     
