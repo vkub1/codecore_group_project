@@ -1,62 +1,65 @@
-
-
-
-<h1 style="background-color:DodgerBlue;"><%= @course.title%> </h1>
-<div class="container tags" id="">
-    <% unless @course.tags.empty? %>
-        <p>Course Tags:
-            <% @course.tags.each do |tag| %>
-                <%= link_to(
-                    tag.name, courses_path(tag: tag.name),
-                    class: 'badge badge-pill badge-primary'
-                    )%>
-            <% end %>
-        </p>
-    <% end %>
-</div>
-<p style="color: navy;text-indent: 30px;"><%= @course.description%></p>
-<p ><%= @course.max_students%></p>
-<br>
-
-
-
-<% teacher = @course.enrolled_users.where('is_teacher = true') %>
-
-<% if current_user.id != teacher[0].id %>
-    <% if @enrollment.present? && @enrollment.approved  %>
-        You are currently enrolled in this class
-        <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
-    <% elsif @enrollment.present? && !@enrollment.approved %>
-        You enrollment in this class is pending teacher approval
-        <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
-    <% else %>
-        You are not enrolled in this class
-        <%= link_to("Enroll Now", "/users/current_user/enrollments?course_id=#{@course.id}", method: :post)%>
-    <% end %>
-    <h2 class="my-3">Teacher: <%= teacher[0].full_name%> </h2>
-<% else %>
-    <h2 class="my-3">You are teaching this course</h2>
-    <div class="mb-3">
-        <%= link_to "Edit", edit_course_path(@course.id), class: "btn btn-outline-warning" %>
-        <%= link_to "Delete", course_path(@course.id), method: :delete, class: "btn btn-outline-danger" %>
-    </div>
-    <% if @course.facilities_booked.length == 0%>
-        You haven't booked a facility yet
-        <%= link_to("Book Now", new_course_booking_path(@course.id)) %>
-    <% else %>
-        <% if @course.bookings.where('end_time > ?', Time.now).count > 0%>
-            <h2>Booked Facilities:</h2>
-            <% @course.bookings.each do |booking| %>
-                    <div class="border border-black border-3 my-3">
-                        <h3><%= link_to(booking.facility.full_address, facility_path(booking.facility.id))%></h3>
-                        <hr>
-                        From: <%= booking.start_time.to_s(:long) %>
-                        <hr>
-                        To: <%= booking.end_time.to_s(:long)  %>
-                    </div>
-            <% end %>
-        <% else %>
-            <%= link_to("Book Facility", new_course_booking_path(@course.id)) %>
+<div class="container flex-column justify-content-center align-items-center">
+    <h1><%= @course.title%> </h1>
+    <div>
+        <% unless @course.tags.empty? %>
+            <p>Tags:
+                <% @course.tags.each do |tag| %>
+                    <%= link_to(tag.name, courses_path(tag: tag.name), class: 'badge badge-pill badge-primary') %>
+                <% end %>
+            </p>
         <% end %>
-    <% end %>
-<% end %>
+    </div>
+</div>
+<hr>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <%= image_tag "course_image_1.jpg", size: "500x500", class: "card-image-top img-fluid w-100 mb-3 mx-auto d-block" %>
+            <p class="card-text"><strong>Course Description: </strong><%= @course.description%></p>
+            <p>Class Size: <%= @course.max_students%></p>
+            <% teacher = @course.enrolled_users.where('is_teacher = true') %>
+            <% if current_user %>
+                <% if current_user.id != teacher[0].id %>
+                    <% if @enrollment.present? && @enrollment.approved  %>
+                        You are currently enrolled in this class
+                        <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
+                    <% elsif @enrollment.present? && !@enrollment.approved %>
+                        You enrollment in this class is pending teacher approval
+                        <%= link_to "Cancel Enrollment", user_enrollment_path(current_user, @enrollment) , method: :delete %>
+                    <% else %>
+                        You are not enrolled in this class
+                        <%= link_to("Enroll Now", "/users/current_user/enrollments?course_id=#{@course.id}", method: :post)%>
+                    <% end %>
+                    <h2 class="my-3">Teacher: <%= teacher[0].full_name%> </h2>
+                <% else %>
+                    <h2 class="my-3">You are teaching this course</h2>
+                    <div class="mb-3">
+                        <%= link_to "Edit", edit_course_path(@course.id), class: "btn btn-outline-warning" %>
+                        <%= link_to "Delete", course_path(@course.id), method: :delete, class: "btn btn-outline-danger" %>
+                    </div>
+                    <% if @course.facilities_booked.length == 0%>
+                        You haven't booked a facility yet
+                        <div class="mt-3">
+                            <%= link_to("Book Now", new_course_booking_path(@course.id), class: "btn btn-outline-primary") %>
+                        </div>
+                    <% else %>
+                        <% if @course.bookings.where('end_time > ?', Time.now).count > 0%>
+                            <h2>Booked Facilities:</h2>
+                            <% @course.bookings.each do |booking| %>
+                                    <div class="card border-0">
+                                        <h3><%= link_to(booking.facility.full_address, facility_path(booking.facility.id))%></h3>
+                                        <%= booking.start_time.strftime("%B %d %Y") %> - <%= booking.end_time.strftime("%B %d %Y") %>
+                                    </div>
+                            <% end %>
+                            <div class="mt-3">
+                                <%= link_to("Book Another Facility", new_course_booking_path(@course.id), class: "btn btn-outline-primary") %>
+                            </div>
+                        <% else %>
+                            <%= link_to("Book Facility", new_course_booking_path(@course.id)) %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

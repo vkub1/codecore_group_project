@@ -4,18 +4,18 @@
 <% @courses.each do |course| %>
     <div class="container my-3 border border-black">
        <div class="card my-3 border-0">
-        <h1><%= course.title %></h1>
+        <h3><%= course.title %></h3>
         <% course.bookings.each do |booking| %>
              
                 <% if course.bookings.length == 0 %>
                     You have not booked a facility for this course yet
                 <% else %>
                     <% facility = Facility.find(booking.facility_id) %>
-                    <h3>Facility Address<%= facility.full_address %></h3>
-                    <h5>Start Time: <%= booking.start_time.strftime("%m/%d/%Y") %></h3>
-                    <h5>End   Time: <%= booking.end_time.strftime("%m/%d/%Y") %></h3>
-                    <h5>Comment   : <%= booking.comment %></h3>
-                    <h3>Booking Status: <%= booking.approved ? "approved":"pending"%></h3>
+                    <h5>Facility Address<%= facility.full_address %></h5>
+                    <h6>Start Time: <%= booking.start_time.strftime("%m/%d/%Y") %></h6>
+                    <h6>End   Time: <%= booking.end_time.strftime("%m/%d/%Y") %></h6>
+                    <h6>Comment   : <%= booking.comment %></h6>
+                    <h5>Booking Status: <%= booking.approved ? "approved":"pending"%></h5>
                     <hr>
                     <%= link_to "See facility details", facility_path(facility.id) %>
                     <% if booking.approved? %>
