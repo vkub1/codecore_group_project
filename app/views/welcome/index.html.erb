@@ -1,1 +1,78 @@
-<h1>welcome</h1>
+<h1>Welcome to Class-ify</h1>
+<hr>
+<div class="welcomeImg">
+   <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url(/images/welcome_1.jpg); background-size: 100% 100%;">
+          <div>
+            <div class="review-container">
+              <h3>Rebecca Chae</h3>
+              <h5>"Class-ify is such a wonderful platform to do both learn and teach!"</h5>
+            </div>
+          </div>
+          
+        </div>
+        <div class="swiper-slide" style="background-image:url(/images/welcome_2.jpg); background-size: 100% 100%;">
+          <div>
+            <div class="review-container">
+            <h3>Mao Li</h3>
+            <h5>"Became a Web Development Engineer from Desktop IT suppot"</h5>
+            </div>
+          </div>
+          
+          
+        </div>
+        <div class="swiper-slide" style="background-image:url(/images/welcome_3.jpg); background-size: 100% 100%;">
+          <div>
+            <div class="review-container">
+            <h3>Kevin Chen</h3>
+            <h5 >"It was my first time teaching through the online platform and it worked successfully!! Thanks a lot to Class-ify"</h5>
+            </div>
+          </div>
+          
+        </div>
+        <div class="swiper-slide" style="background-image:url(/images/welcome_4.jpg); background-size: 100% 100%;">
+          <div>
+            <div class="review-container">
+            <h3>Yuko Ho</h3>
+            <h5>"I made it through! All the support from Class-ify was amazing."</h5>
+            </div>
+          </div>
+          
+        </div>
+
+
+
+        
+      </div>
+      <div class="swiper-pagination"></div>
+
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+
+</div>
+
+<hr>
+<div class="contact">
+<div>
+  <h4>Contact info</h4>
+  <h6>Email: info@classify.com | Phone: 604-123-1234</h6>
+</div>
+</div>
+
+
+<script>
+      const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    }
+      });
+    </script>
