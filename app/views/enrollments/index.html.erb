@@ -1,8 +1,9 @@
-<h1>Enrolled Courses</h1>
+<h1 style="text-align: center;">Enrolled Courses</h1>
 <hr>
-<div class="d-flex flex-wrap">
+
+<div class="d-flex flex-wrap backGround">
 <% @enrollments.each do |enrollment|%>
-  <div class="card my-3 mx-3 col-12 col-sm-12 col-md-3">
+  <div class="card my-5 mx-3 col-12 col-sm-12 col-md-3 " style="width:30%;" >
     <%= link_to(enrollment.course.title, course_path(enrollment.course), class:"card-title courseTitle") %>
     
     <div class="card-body">

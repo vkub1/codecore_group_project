@@ -16,5 +16,6 @@ import "chartkick/chart.js"
 window.jQuery = $;
 window.$ = $;
 
+
 Rails.start()
 ActiveStorage.start()
