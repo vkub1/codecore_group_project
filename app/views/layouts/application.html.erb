@@ -8,6 +8,13 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
+    
+    <%# stripe %>
+    <link rel="stylesheet" href="checkout.css" />
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="checkout.js" defer></script>
+    <%# stripe %>
+
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://kit.fontawesome.com/e5acfba74d.js" crossorigin="anonymous"></script>
   </head>
