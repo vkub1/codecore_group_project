@@ -5,31 +5,34 @@
     <% end %>
   </ul>
 <% end %>
-
+<div class="container-fluid">
 <%= form_with model:@course do |form|%>
+    <div class="mb-3">
+      <%= form.label :title%>
+      <%= form.text_field :title , :class=>'form-control' %>
+    </div>
 
-    <%= form.label :title%>
-    <br>
-   
-    <%= form.text_field :title%>
-    
-    <br>
-    <%= form.label :description%>
-    <br>
-    <%= form.text_area :description%>
-    <br>
-    <%= form.label :max_students%>
-    <%= form.number_field :max_students, in: 1.0..30.0, step: 1 %>
-    <br>
-    <div class="tag-container">
+     <div class="mb-3">
+      <%= form.label :description%>
+      <%= form.text_area :description , :class=>'form-control' %>
+    </div>
+  
+    <div class="mb-3">
+      <%= form.label :max_students%>
+      <%= form.number_field :max_students, in: 1.0..30.0, step: 1, :class=>'form-control'  %>
+    </div>
+    <div class="mb-3 tag-container">
             <div class="tag-wrapper">
                 <%= form.label :tag_names %>
-                <%= form.text_field :tag_names %>
+                <%= form.text_field :tag_names, :class=>'form-control' %>
             </div>
     </div>
-    <%= form.submit nil, class:"btn btn-outline-primary" %>
+        <div class="mb-3">
+        <%= form.submit class:"btn btn-outline-primary" %>
+        </div>
+    <% end %>
+</div>
 
-    <%= %>
 <% end %>
 
 
@@ -54,3 +57,4 @@
         })
     })
 </script>
+    

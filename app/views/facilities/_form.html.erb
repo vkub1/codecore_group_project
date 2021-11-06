@@ -12,32 +12,26 @@
     <div>
         <%= form.label :full_address %>
         <br>
-        <%= form.text_field :full_address %>
+        <%= form.text_field :full_address, class:"form-control" %>
     </div>
     <div>
         <%= form.label :features %>
         <br>
-        <%= form.text_field :features %>
+        <%= form.text_field :features, class:"form-control" %>
     </div>
-    <div>
-        <%= form.label :description %>
-        <br>
-        <%= form.text_area :description, cols: 50, rows: 5 %>
-        <br>
-        <div class="tag-container">
-            <div class="tag-wrapper">
-                <%= form.label :tag_names %>
-                <%= form.text_field :tag_names %>
-            </div>
-        </div>
-        
+    <br>
+    <div class="tag-container">
+        <div class="tag-wrapper">
+            <%= form.label :tag_names %>
+            <%= form.text_field :tag_names, class:"form-control" %>
         </div>
     </div>
-    <%= form.submit %>
+    
+    <br>
+    <%= form.submit class:"btn btn-outline-primary" %>
     <% end %>
 
 <script>
-    
     $(function(){
         console.log($('#facility_tag_names'));
         $('#facility_tag_names').selectize({
