@@ -4,26 +4,21 @@
    
     <div class="col">
     
-        <div class="card " style="width: 22rem" >
-
-            <h4><%= facility.full_address%> </h4>
-            <br>
+        <div class="card" style="width: 22rem" >
             <div class="card-body">
-           
-                <h5>bookings:</h5>
-                 <% if facility.bookings.any?%>
-                   <ul>
-                    <p><% facility.bookings.each do |booking| %></p>
-                        <li> <%= "#{booking.course.title} booked_from #{booking.start_time} to #{booking.end_time}"%></li>
-                    <% end %>
-                    </ul>
-                <% else %>
+                <h4 class="card-title"><%= facility.full_address%> </h4>
+                    <h5 class="card-text">Bookings:</h5>
+                    <% if facility.bookings.any?%>
                     <ul>
-                        <p>This facility doesnot have any bookings.</p>
-                    </ul>
-                <% end %>
-               
-            
+                        <p class="card-text"><% facility.bookings.each do |booking| %></p>
+                            <li> <%= "#{booking.course.title} booked_from #{booking.start_time} to #{booking.end_time}"%></li>
+                        <% end %>
+                        </ul>
+                    <% else %>
+                        <ul>
+                            <p>This facility does not have any bookings.</p>
+                        </ul>
+                    <% end %>
             </div>
         </div>
     <br>
