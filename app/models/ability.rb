@@ -41,7 +41,7 @@ class Ability
     end
 
     can(:crud, Course) do |course|
-      user == course.teacher
+      user == course.enrolled_users.where('is_teacher=true')[0]
     end
   end
 end

@@ -54,7 +54,7 @@ class CoursesController < ApplicationController
     def course_params
         params.require(:course).permit(:title,:description,:max_students, tag_ids:[])
     end
-    def authorize_user!
-        redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @course)
-    end
+     def authorize_user!
+         redirect_to courses_path, alert: "Not Authorized!" unless can?(:crud, @course)
+     end
 end
