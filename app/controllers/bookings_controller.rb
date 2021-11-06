@@ -3,9 +3,12 @@ class BookingsController < ApplicationController
     
 
     before_action :find_booking, only: [:edit, :update, :show, :destroy]
-    before_action :find_course, except: [:index, :calendar ]  
+    before_action :find_course, except: [:index, :calendar, :thanks ]  
     #before_action :authorize_user!
 
+    def thanks
+    end
+    
     def index
         teacher_enrollments = current_user.enrollments.where('is_teacher = true')
         @courses = []

@@ -26,6 +26,7 @@ gem 'selectize-rails'
 gem 'faker'
 gem 'jquery-rails'
 gem "chartkick"
+gem 'stripe'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
